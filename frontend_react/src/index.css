@@ -1,0 +1,237 @@
+/* body{
+    background-color: rgb(118, 214, 240);
+    background-image: url("public/backgroung.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+} */
+
+
+:root {
+    --bgcolor: rgb(0, 0, 0);
+    /* --bgcolor : rgb(0, 0, 0) ; */
+    --textcolor: rgb(255, 255, 255);
+    /* --boxshadow : rgb(0, 255, 229); */
+    --boxshadow: rgb(251, 251, 251);
+  }
+  
+  /* ------------------------------   Navbar - start ----------------------------------- */
+  
+  .active {
+    /* color: rgb(255, 255, 255) !important; */
+    /* background-color: rgba(125, 125, 135, 0.51); */
+    /* border-radius: 10px; */
+    box-shadow: 0px 1px black;
+    /* border-bottom: 1px solid rgb(0, 0, 0); */
+    /* border-top: 1px solid black; */
+    border-radius: 5px;
+  }
+  
+  .brand_name {
+    color: black !important;
+    letter-spacing: 2vw;
+    text-shadow: 1px 0px var(--boxshadow);
+  }
+  nav a {
+    /* font-size: 18px; */
+    color: black !important;
+    margin-left: 20px;
+    padding: 0.5% 2% !important;
+  }
+  .navbaar {
+    /* background-color: var(--bgcolor); */
+    position: absolute;
+    top: 0;
+    z-index: 999;
+
+    width: 100%;
+    backdrop-filter: blur(20px);
+    background-color: rgba(182, 18, 18, 0);
+    color: black;
+    box-shadow: 0px 0px 5px black;
+  }
+  
+  .nav_manu_togal {
+    background-color:  rgba(117, 160, 173, 0);
+    backdrop-filter: blur(10px);
+
+    color: black;
+  }
+
+
+  .nav_manu_togal button {
+    background-color: rgb(0, 255, 229);
+  }
+  .nav_togal {
+    background-color: rgba(109, 149, 161, 0.553);
+  }
+  
+  /* --------------------------------------- navbar -- end ----------------- */
+  
+
+
+
+.main_h1{
+    position: relative;
+    display: inline;
+}
+
+.main_h1::after{
+    content: "";
+    width: 110%;
+    height: 10%;
+    position: absolute;
+    bottom: 20%;
+    left: -1%;
+    background-color: rgb(0, 166, 255);
+    
+    z-index: -1;
+}
+
+.red_h1::after{
+    background-color: rgb(255, 0, 0);
+    width: 150%;
+
+}
+
+.project_main_box{
+    padding: 200px;
+    padding-top: 100px;
+    /* background-color: rgba(0, 110, 255, 0.618); */
+}
+
+.project_h1{
+    display: block;
+    width: 150px;
+   margin-bottom: 100px ;
+}
+
+
+
+.project_div{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+
+    /* background-color: rgba(163, 246, 138, 0.222); */
+    margin-top: 50px;
+    margin-bottom: 100px;
+    border-radius: 20px;
+
+    border: 1px solid red;
+
+
+
+         animation: divanimation linear ;
+            animation-timeline: view();
+            animation-range: entry 0 cover 35%;
+
+            backdrop-filter: blur(5px);
+            box-shadow: 0px 0px 5px rgb(250, 0, 0);
+            overflow: hidden;
+}
+
+
+@keyframes divanimation {
+            
+    from { 
+        /* opacity: 0;  */
+        scale: 0.01;
+    }
+
+    to{
+        /* opacity: 1;  */
+        scale: 1;
+
+    }
+
+}
+
+
+
+
+.project_div_text{
+    width: 50%;
+    padding: 20px;
+    /* background-color: rgba(107, 83, 83, 0.386); */
+}
+
+
+.project_div_text p{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+.project_links{
+    padding: 20px 20px 20px 0px;
+    /* background-color: rgb(134, 122, 122); */
+    display: flex;
+    gap: 5%;
+    align-items: center;
+
+    
+}
+
+.project_links a{
+    text-decoration: none; 
+    color: black;
+    /* padding: 2% 12% 2% 12%; */
+    /* width: 30%;
+    height: 10%; */
+    text-align: center;
+    /* border: 1px solid black; */
+    /* background-color: red; */
+
+
+}
+
+.project_links .icon{
+    transition: 0.1s ease ;
+
+}
+
+.project_links a:hover .icon{
+    /* font-size: 50px !important; */
+    color: rgb(255, 0, 0);
+    scale: 2;
+}
+
+.project_div_text button{
+    outline: none;
+    background-color: transparent;
+    border: 1px solid black;
+    width: 50%;
+    height: 10%;
+    /* padding: 1% 20% 1% 20%; */
+    transition: all 0.2s ease;
+
+
+}
+
+.project_div_text button:hover{
+    cursor: pointer;
+font-size: x-large;
+color: red;
+}
+
+.project_div_image{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: rgba(93, 176, 176, 0.278); */
+    /* border-left: 1px solid rgb(0, 0, 0); */
+    width: 50%;
+    overflow: hidden;
+
+}
+
+
+.project_div img{
+
+width: 80%;
+
+}
+
