@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-
 const connectdb = require('../database/db_connect');
 
 connectdb();  // to connect data base fore ferform querys 
