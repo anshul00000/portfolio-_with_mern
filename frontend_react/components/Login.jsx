@@ -1,7 +1,7 @@
 import React , {useContext, useState} from 'react'
 import Button from '@mui/material/Button';
 import Footer from './Footer';
-import { Context } from '../context/context_api';
+import { Context } from '../public/context/context_api';
 import { useNavigate } from 'react-router-dom';
 
 

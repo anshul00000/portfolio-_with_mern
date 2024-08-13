@@ -33,10 +33,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/uploads', express.static(path.join(__dirname, '../frontend_react/public/users')));
 
+// const react_url = "https://66bbd54e9028aeb3f6537274--superb-bublanina-ddc5e7.netlify.app/";
+
+const react_url = "https://66bbd54e9028aeb3f6537274--superb-bublanina-ddc5e7.netlify.app"
+
 
 // extra routs 
 const corsOptions = {
-  origin : "http://localhost:5173",
+  origin : react_url ,
 //  methods : "GET , POST , PUT , DELETE  , PATCH",
  methods : ["GET", "POST", "PUT", "DELETE", "PATCH"],
 

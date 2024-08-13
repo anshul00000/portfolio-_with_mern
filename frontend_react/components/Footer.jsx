@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 
-import { Context } from '../context/context_api';
+import { Context } from '../public/context/context_api';
 
 
 

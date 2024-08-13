@@ -1,7 +1,7 @@
 // import React from 'react'
 import { useContext, useEffect, useState } from "react";
 import {NavLink , Link, useLocation} from "react-router-dom";
-import { Context } from "../context/context_api";
+import { Context } from "../public/context/context_api";
 
 import Button from '@mui/material/Button';
 

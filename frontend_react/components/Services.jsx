@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import Button from '@mui/material/Button';
 import Footer from './Footer';
 
-import { Context } from '../context/context_api';
+import { Context } from '../public/context/context_api';
 
 import {  toast } from 'react-toastify';
 

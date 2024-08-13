@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
 
-import { Context } from '../context/context_api';
+import { Context } from '../public/context/context_api';
 
 
 function Signup() {

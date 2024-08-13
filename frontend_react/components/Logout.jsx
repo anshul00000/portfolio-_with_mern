@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { Context } from '../context/context_api';
+import { Context } from '../public/context/context_api';
 import { Navigate } from 'react-router-dom';
 
 

@@ -8,7 +8,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavLink } from "react-router-dom";
 
-import { Context } from "../context/context_api";
+import { Context } from "../public/context/context_api";
 
 
 
