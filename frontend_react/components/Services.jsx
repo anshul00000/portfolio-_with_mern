@@ -17,7 +17,7 @@ function Services() {
   
   const { set_run_effect } =  useContext(Context);
 
-  const { state } =  useContext(Context);
+  const { state , backend_url } =  useContext(Context);
 
   const [project_details , set_project_details] = useState({
    id : "",
@@ -100,7 +100,7 @@ function Services() {
 
   try {
     
-     const response = await fetch(`http://localhost:3000/updateproject/${project_details.id}`, {
+     const response = await fetch(`${backend_url}/updateproject/${project_details.id}`, {
 
       method: 'PATCH',
       headers: {
@@ -193,7 +193,7 @@ alert(id);
   if(y_n == true)
   {
 
-  const response = await fetch(`http://localhost:3000/deletefile/${id}/image/${image}` , {
+  const response = await fetch(`${backend_url}/deletefile/${id}/image/${image}` , {
     
     method: 'DELETE',
     headers: {

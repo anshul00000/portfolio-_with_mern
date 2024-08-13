@@ -21,6 +21,8 @@ const Contextstate = (props)=>{
 
     const [run_effect , set_run_effect] = useState(true);
     
+
+    const backend_url = 'https://portfolio-with-mern-backend.onrender.com' ;
     
     // console.log(state);
     // console.log("this is user",user);
@@ -73,7 +75,7 @@ const Contextstate = (props)=>{
 
         try {
             
-            const response = await fetch(`http://localhost:3000/user`, {
+            const response = await fetch(`${backend_url}/user`, {
                 method: 'GET',
                 headers: {
                   'Authorization': state ,
@@ -154,7 +156,7 @@ const Contextstate = (props)=>{
 
 
     return (
-        <Context.Provider value={{islogin, save_tooken , delete_tooken , user , project , run_effect , set_run_effect , state}}>
+        <Context.Provider value={{backend_url ,islogin, save_tooken , delete_tooken , user , project , run_effect , set_run_effect , state}}>
             {props.children}
         </Context.Provider>
     );

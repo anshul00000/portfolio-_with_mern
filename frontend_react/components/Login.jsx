@@ -7,16 +7,23 @@ import { useNavigate } from 'react-router-dom';
 
 import {  toast } from 'react-toastify';
 
+// const api = import.meta.env.backend_url ;
 
 
 function Login() {
   
-  const a =  useContext(Context);
+  const {save_tooken , backend_url} =  useContext(Context);
 
   const navitate = useNavigate();
 
   const [L , L_C] = useState({email: "" , password: ""});
   
+
+
+
+      // console.log(backend_url);
+
+
   const set_login=(e)=>{
 
     const {value , name } = e.target;
@@ -37,9 +44,14 @@ function Login() {
       //  toast("Login saved WORKING");
 
       // all try and catch for fetch express url 
+
+
+      // const url = "https://portfolio-with-mern-backend.onrender.com";
+      
+      
       
       try {
-       const response = await fetch(`http://localhost:3000/login` , {
+       const response = await fetch(`${backend_url}/login` , {
          method : "POST" ,     // this is default express url 
         
         headers : {
@@ -60,7 +72,8 @@ function Login() {
 
           if(data.tooken){
             
-            a.save_tooken(data.tooken);
+            // a.save_tooken(data.tooken);
+            save_tooken(data.tooken);
             L_C({
               email : "",
               password:"",
@@ -92,7 +105,8 @@ function Login() {
           }
 
         }catch (error) {
-          console.log("register servar error with express URI " , error);
+        toast("url error");
+      console.log("register servar error with express URI " , error);
         }
         
 

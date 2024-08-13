@@ -8,7 +8,7 @@ import { Context } from '../context/context_api';
 
 function Home() {
 
-    const { user } =  useContext(Context);
+    const { user ,backend_url } =  useContext(Context);
 
     const [L , L_C] = useState({email: "" , password: ""});
   
@@ -32,7 +32,7 @@ function Home() {
         // all try and catch for fetch express url 
         
         try {
-         const response = await fetch(`http://localhost:3000/login` , {
+         const response = await fetch(`${backend_url}/login` , {
            method : "POST" ,     // this is default express url 
           
           headers : {

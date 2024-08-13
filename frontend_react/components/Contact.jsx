@@ -9,7 +9,7 @@ import {  toast } from 'react-toastify';
 
 function Contact() {
   
- const { user } =  useContext(Context);
+ const { user , backend_url } =  useContext(Context);
 
   const [L , L_C] = useState({name: "" , email: "" , message : ""});
   
@@ -64,7 +64,7 @@ function Contact() {
       // all try and catch for fetch express url 
       
       try {
-       const response = await fetch(`http://localhost:3000/contact` , {
+       const response = await fetch(`${backend_url}/contact` , {
          method : "POST" ,     // this is default express url 
         
         headers : {

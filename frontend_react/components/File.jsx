@@ -11,7 +11,7 @@ import Footer from './Footer';
 function File() {
 
 
- const { user } =  useContext(Context);
+ const { user ,backend_url} =  useContext(Context);
 
 
 //  console.log("this is from user ",user.email);
@@ -100,7 +100,7 @@ function File() {
 
 
     try {
-      const response = await fetch('http://localhost:3000/file', {
+      const response = await fetch(`${backend_url}/file`, {
         method: 'POST',
         body: data,
       });
