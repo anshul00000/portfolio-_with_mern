@@ -324,7 +324,10 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
       } else {
 
 
-        const filePath = path.join(__dirname, '../../frontend_react/public/users', oldphotopath);
+        // const filePath = path.join(__dirname, '../../frontend_react/public/users', oldphotopath);
+       
+       
+        const filePath = path.join(__dirname, '../public/images', oldphotopath);
 
         // Delete the file from the filesystem
         fs.unlink(filePath, async (err) => {
@@ -459,7 +462,9 @@ router.route('/deletefile/:id/image/:image').delete(async (req, res) => {
 
     try {
 
-      const filePath = path.join(__dirname, '../../frontend_react/public/users', image_name);
+      // const filePath = path.join(__dirname, '../../frontend_react/public/users', image_name);
+
+      const filePath = path.join(__dirname, '../public/images', image_name);
 
       // Delete the file from the filesystem
       fs.unlink(filePath, async (err) => {

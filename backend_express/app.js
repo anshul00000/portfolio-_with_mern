@@ -23,6 +23,8 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use('/public', express.static(path.join(__dirname, 'public')));
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -33,9 +35,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/uploads', express.static(path.join(__dirname, '../frontend_react/public/users')));
 
-// const react_url = "https://66bbd54e9028aeb3f6537274--superb-bublanina-ddc5e7.netlify.app/";
+// const react_url = "http://localhost:5173";
 
-const react_url = "https://66bbd54e9028aeb3f6537274--superb-bublanina-ddc5e7.netlify.app"
+// const react_url = "https://66bbd54e9028aeb3f6537274--superb-bublanina-ddc5e7.netlify.app"
+
+// final react url
+
+const react_url = "https://anshulportfolio00.netlify.app"
 
 
 // extra routs 
@@ -59,8 +65,12 @@ app.use('/', indexRouter);
 
 
 // catch 404 and forward to error handler
+
+
 app.use(function(req, res, next) {
+  
   next(createError(404));
+
 });
 
 // error handler

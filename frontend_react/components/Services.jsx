@@ -311,7 +311,7 @@ alert(id);
 
           <button onClick={()=>openDialog(element._id , element.name , element.description , element.technologys)}>Edit </button>
           {/* <button type='button' onClick={() => edit_p(element._id)}>Edit</button> */}
-          <br /><br />
+          
           <button type='button' onClick={() => delete_p(element.image , element._id)}>delete this Project</button>
     
 
@@ -319,7 +319,15 @@ alert(id);
           </div>
 
           <div className='project_div_image'>
-          <img src={`users/${element.image}`} alt="" />
+
+
+          {/* <img src={`users/${element.image}`} alt="" /> */}
+
+          {/* `${backend_url}/deletefile/${id}/image/${image}` */}
+
+          <img src={`${backend_url}/public/images/${element.image}`} alt="" />
+
+          
 
           </div>
 

@@ -377,7 +377,7 @@ border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(239, 99, 99, 0.332);
+  /* background-color: rgba(239, 99, 99, 0.332); */
   width: 500px;
   height: auto;
 }

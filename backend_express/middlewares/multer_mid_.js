@@ -10,7 +10,8 @@ const storage = multer.diskStorage({
         
         
         destination: (req, image, cb) => {
-            cb(null, '../frontend_react/public/users');
+          
+            cb(null, './public/images');
         },
         filename: (req, image, cb) => {
             cb(null, Date.now() + '-' + image.originalname);

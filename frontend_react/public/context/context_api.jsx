@@ -22,7 +22,9 @@ const Contextstate = (props)=>{
     const [run_effect , set_run_effect] = useState(true);
     
 
-    const backend_url = 'https://portfolio-with-mern-backend.onrender.com' ;
+    const backend_url = 'https://portfolio-with-mern-backend.onrender.com';
+
+    // const backend_url = 'http://localhost:3000';
     
     // console.log(state);
     // console.log("this is user",user);

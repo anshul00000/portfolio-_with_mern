@@ -50,6 +50,7 @@ function Appbar() {
                             <Offcanvas.Body className="nav_menu">
                                 {/* <div className="navlink"> */}
                                 <Nav className="justify-content-end flex-grow-1 nav_link">
+                                    
                                     <Nav.Link as={NavLink} to={"/"}>
                                         Home
                                     </Nav.Link>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import './media.css';
 
 // this css for notifaction 
 import 'react-toastify/dist/ReactToastify.css';
