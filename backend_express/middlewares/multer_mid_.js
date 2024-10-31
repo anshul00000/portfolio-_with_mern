@@ -5,9 +5,6 @@ const path = require('path');
 
 const storage = multer.diskStorage({
 
-    // if(image){
-        // }
-        
         
         destination: (req, image, cb) => {
           
@@ -19,10 +16,6 @@ const storage = multer.diskStorage({
     
     
 });
-
-
-// console.log("image is here ✔️");
-
 
   
   const fileFilter = (req, image, cb) => {

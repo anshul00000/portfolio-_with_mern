@@ -12,17 +12,12 @@ const user_details = async (req , res , next)=>{
 
     //  if(tooken){
 
-     
-
     //  res.send("data is not provide");
 
     // res.json({msg : "data is not provided"});
 
 
     // res.json({message : "please login kijiye "});
-
-
-
     //  if(tooken === null){
     //  
 
@@ -33,23 +28,10 @@ const user_details = async (req , res , next)=>{
        
        const user_id =  decoded.userId ;
        
-       const user_deails = await User.findOne({email : decoded.email} ).select({password : 0 ,}) ; 
+       const user_deails = await User.findOne({email : decoded.email} ).select({password : 0 ,}).populate('followers', '-password').populate('following' , '-password') ; 
        
        const project_details = await project.find({owner : user_id}).populate('owner', '-password');
 
-
-      //  .select({password : 0 }) ;
-
-    //    .populate('owner')
-         
-    //    
-
-    //    console.log(project_details);
-
-    // console.log(tooken);
-
-
-    //    console.log(user_deails);
        
        req.user = user_deails;
 
@@ -57,9 +39,6 @@ const user_details = async (req , res , next)=>{
 
 
        next();
-
-
-   
 
 
     } catch (error) {
@@ -70,7 +49,6 @@ const user_details = async (req , res , next)=>{
     
 
 
-
 // }else{
 
 //    res.json({msg : "please login kijiye "});
@@ -78,4 +56,34 @@ const user_details = async (req , res , next)=>{
 // }
 };
 
-module.exports = user_details ; 
+
+const all_user_details = async (req, res , next) => {
+
+
+    
+   try {
+       
+ 
+    
+    const user_deails = await User.find().select({password : 0 ,}).populate('followers', '-password').populate('following' , '-password') ; 
+
+    
+    req.user = user_deails;
+
+
+    next();
+
+
+ } catch (error) {
+     
+     // console.log("tooken varification error ");
+     return res.json({msg : "! kuch to gadbad h daya !"});
+
+
+ }
+ 
+
+
+};
+
+module.exports = { user_details , all_user_details} ; 

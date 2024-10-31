@@ -26,7 +26,28 @@ const userschema = new mongoose.Schema({
     photo : {
         type : String,
         default : "default.jpg",
-    }
+    },
+    bio : {
+        type : String,
+        default : "React developr ^_^",
+    },
+    github : {
+        type : String,
+        default : "https://github.com/anshul00000",
+    },
+    linkedin : {
+        type : String,
+        default : "https://www.linkedin.com/in/anshul-chaurasiya/",
+    },
+    followers :[{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User',
+    }],
+    
+    following :[{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : 'User',
+    }]
 }) ;
 
 

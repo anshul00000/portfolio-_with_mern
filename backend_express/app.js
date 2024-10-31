@@ -17,6 +17,8 @@ const bodyParser = require('body-parser');
 // error handler
 const errormiddleware = require("./middlewares/error_middleware");
 
+
+
 var app = express();
 
 // view engine setup
@@ -35,13 +37,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/uploads', express.static(path.join(__dirname, '../frontend_react/public/users')));
 
-// const react_url = "http://localhost:5173";
+const react_url = "http://localhost:5173";    //✔️
 
 // const react_url = "https://66bbd54e9028aeb3f6537274--superb-bublanina-ddc5e7.netlify.app"
 
 // final react url
 
-const react_url = "https://anshulportfolio00.netlify.app"
+// const react_url = "https://anshulportfolio00.netlify.app"     //✔️
 
 
 // extra routs 
