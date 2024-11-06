@@ -3,12 +3,26 @@ var router = express.Router();
 
 const connectdb = require('../database/db_connect');
 
-let connect_db ;
+let connect_db;
 
-const conect_fun=async()=>{
-   connect_db =await connectdb();  // to connect data base fore ferform querys 
 
-    console.log(connect_db);
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
+
+
+const dotenv = require('dotenv');
+
+
+dotenv.config();
+
+// Store OTP in memory (For production, use a database)
+const otpStore = {};
+
+
+const conect_fun = async () => {
+  connect_db = await connectdb();  // to connect data base fore ferform querys 
+
+  console.log(connect_db);
 }
 
 conect_fun();
@@ -26,12 +40,13 @@ const bcrypt = require('bcrypt');
 const { signupschema, loginschema, projectschema } = require("../models/Model_validation");
 
 const { validate } = require("../middlewares/validater_middleware_");
+
 const { my_anshul } = require("../middlewares/validater_middleware_");
 
 
 // const {user_details , projects_details} = require('../middlewares/user_details');
 
-const {user_details , all_user_details} = require('../middlewares/user_details');
+const { user_details, all_user_details } = require('../middlewares/user_details');
 
 // user_details
 
@@ -50,26 +65,156 @@ const upload = require('../middlewares/multer_mid_.js');
 
 
 //  *********************************
+//  ****  otp route  ******
+//  *********************************
+
+
+
+
+// Set up Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: 'Gmail', // Use your email provider's SMTP server
+  secure: true,
+  port: 465,
+  auth: {
+    // process.env.mongodb_uri
+    // user: process.env.EMAIL, // Your email
+    // pass: process.env.EMAIL_PASSWORD, // Your email password
+
+
+    // user: "chaurasiyaa448@gmail.com", // Your email
+    user: "anshulemailid07@gmail.com", // Your email
+    pass: "rjabjurbbyjckhsv", // Your email password
+    // pass: 260504, // Your email password
+
+  },
+});
+
+
+// Route to send OTP
+router.route('/sendotp').post(async (req, res) => {
+
+  const { email, forget } = req.body;
+
+  if (!email) return res.status(400).json({ message: 'Email is required', status: 400 });
+
+  if (forget) {
+
+
+    const userexist = await User.findOne({ email });
+
+    if (userexist) {
+
+      // Generate a random 6-digit OTP
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+      // Store OTP temporarily (expires in 5 minutes)
+      otpStore[email] = otp;
+      setTimeout(() => delete otpStore[email], 5 * 60 * 1000); // Delete OTP after 5 minutes
+
+      // Send OTP via email
+      const mailOptions = {
+        // from: process.env.EMAIL,
+        from: "anshulemailid07@gmail.com",
+        to: email,
+        subject: 'Your OTP Code',
+        text: `Your OTP code is: ${otp}`,
+      };
+
+      try {
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'OTP sent to your email', status: 200 });
+      } catch (error) {
+        res.status(500).json({ message: 'Failed to send OTP', status: 500, error });
+      }
+
+    } else {
+      return res.status(400).json({ message: 'email is not found', status: 400 });
+
+    }
+
+  }else {
+
+
+  const userexist = await User.findOne({ email });
+
+  if(userexist) {
+
+    return res.status(400).json({ message: 'email alwrad exist try again another one ', status: 400 });
+  }
+  
+  if(!email) return res.status(400).json({ message: 'Email is required', status: 400 });
+
+  // Generate a random 6-digit OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+  // Store OTP temporarily (expires in 5 minutes)
+  otpStore[email] = otp;
+  setTimeout(() => delete otpStore[email], 5 * 60 * 1000); // Delete OTP after 5 minutes
+
+// Send OTP via email
+const mailOptions = {
+  // from: process.env.EMAIL,
+  from: "anshulemailid07@gmail.com",
+  to: email,
+  subject: 'Your OTP Code',
+  text: `Your OTP code is: ${otp}`,
+};
+
+try {
+  await transporter.sendMail(mailOptions);
+  res.status(200).json({ message: 'OTP sent to your email', status: 200 });
+} catch (error) {
+  res.status(500).json({ message: 'Failed to send OTP', status: 500, error });
+}
+
+}
+
+
+});
+
+
+
+
+
+// Route to verify OTP
+router.route('/verifyotp').post((req, res) => {
+
+  const { email, otp } = req.body;
+
+  if(otpStore[email] == otp) {
+    delete otpStore[email]; // OTP verified, remove it
+    res.status(200).json({ message: 'OTP verified successfully', status: 200 });
+  } else {
+    res.status(400).json({ message: `Invalid OTP or OTP expired ${otpStore[email]} , and your otp is ${otp}`, status: 400 });
+  }
+});
+
+
+
+
+
+//  *********************************
 //  ****   register route  ******
 //  *********************************
 
 
-router.route('/').get(async(req, res) => {
+router.route('/').get(async (req, res) => {
 
   // res.render('index', { title: 'Express' });
 
   // res.send("Welcome to  Express hyy i am anshul chaurasiya 🙏🏻");
 
-await conect_fun();
+  await conect_fun();
 
-  if(connect_db){
+  if (connect_db) {
     // console.log("✔️✔️✔️");
 
-    res.json({message: "true"});
+    res.json({ message: "true" });
 
-  }else{
+  } else {
     // console.log("❌❌❌");
-    res.json({message: "false"});
+    res.json({ message: "false" });
 
   }
 
@@ -98,6 +243,7 @@ await conect_fun();
       const created_user = await User.create({ username, email, password: hash, phone });
 
       console.log("upload ho gai this is server side ☺️");
+
       res.json({ msg: "user created sussesfully ✔️✅", tooken: await created_user.generateToken(), userId: created_user._id.toString() });
 
 
@@ -176,72 +322,72 @@ router.route('/login').get((req, res) => {
 
 router.route('/forget').post(async (req, res) => {
 
-  const {email , password } = req.body;
+  const { email, password } = req.body;
 
   // res.json({ msg: email });
 
-  if(password === ""){
+  if (password === "") {
 
     const userexist = await User.findOne({ email });
 
     // console.log("find frocess is compleated ✔️");
-  
-  
+
+
     if (userexist) {
 
-  // res.json({ msg: email });
-
-  
-  res.json(true);
+      // res.json({ msg: email });
 
 
-    }else{
+      res.json(true);
+
+
+    } else {
       res.json(false);
-     
+
 
 
     }
 
 
 
-  }else{
-  // res.json({ msg: password });
+  } else {
+    // res.json({ msg: password });
 
 
-  try {
-    
-    const saltRounds = 10;
+    try {
 
-    bcrypt.hash(password, saltRounds, async function (err, hash) {
+      const saltRounds = 10;
 
-
-  
-       await User.updateOne(
-        { email: email },              // Query to find the document with name "Ram"
-        { $set: { password: hash } } // Operation to insert the surname "Sharma"
-      );
-      
-  
-  
-      console.log("upload ho gai this is server side ☺️");
-  
-      // res.json({ msg: "Password update sussesfully ✔️✅"});
-      res.json(true);
-  
-  
-  
-     
-    });
+      bcrypt.hash(password, saltRounds, async function (err, hash) {
 
 
-  } catch (error) {
-    res.json(false);
-    
+
+        await User.updateOne(
+          { email: email },              // Query to find the document with name "Ram"
+          { $set: { password: hash } } // Operation to insert the surname "Sharma"
+        );
 
 
-  }
 
- 
+        console.log("upload ho gai this is server side ☺️");
+
+        // res.json({ msg: "Password update sussesfully ✔️✅"});
+        res.json(true);
+
+
+
+
+      });
+
+
+    } catch (error) {
+      res.json(false);
+
+
+
+    }
+
+
 
   }
 
@@ -291,7 +437,7 @@ router.route('/contact').get((req, res) => {
 
 
 
-router.route('/follow').post(user_details , async (req, res) => {
+router.route('/follow').post(user_details, async (req, res) => {
 
   try {
     const user_tooken = req.user;
@@ -317,21 +463,21 @@ router.route('/follow').post(user_details , async (req, res) => {
     );
 
 
-      // const project = await Project_schema.updateOne({_id : id}, { $set : updateuserdata });
+    // const project = await Project_schema.updateOne({_id : id}, { $set : updateuserdata });
 
-      // const project = await Project_schema.updateOne({_id : id}, { name, description, technologys});
+    // const project = await Project_schema.updateOne({_id : id}, { name, description, technologys});
 
-      if (!project) {
-        console.log("user not found");
-        res.json('user not found');
+    if (!project) {
+      console.log("user not found");
+      res.json('user not found');
 
-      } else {
-
-
-        res.json({ message: "update details sussefully ", updatedproject: project });
+    } else {
 
 
-      }
+      res.json({ message: "update details sussefully ", updatedproject: project });
+
+
+    }
 
 
 
@@ -356,7 +502,7 @@ router.route('/follow').post(user_details , async (req, res) => {
 //  *********************************
 
 
-router.route('/checkfollow').post(user_details , async (req, res) => {
+router.route('/checkfollow').post(user_details, async (req, res) => {
 
 
   try {
@@ -390,7 +536,7 @@ router.route('/checkfollow').post(user_details , async (req, res) => {
 
     console.error("Error in checkfollow route:", error);
     res.status(500).json({ error: "Internal server error" });
-    
+
   }
 
 })
@@ -450,36 +596,36 @@ router.route('/unfollow').post(user_details, async (req, res) => {
 
 //  , projects_details
 
-router.route('/auser').post(async(req, res) => {
+router.route('/auser').post(async (req, res) => {
 
-    const { user_id } = req.body ;
+  const { user_id } = req.body;
 
   try {
-    
-    const user_deails = await User.findOne({_id : user_id} ).select({password : 0 ,}).populate('followers', '-password').populate('following' , '-password') ; 
-    
-    // const project_details = await project.find({owner : user_id}).populate('owner', '-password');
-    
-    
-    const project_details = await Project_schema.find({owner : user_id});
 
-    
+    const user_deails = await User.findOne({ _id: user_id }).select({ password: 0, }).populate('followers', '-password').populate('following', '-password');
+
+    // const project_details = await project.find({owner : user_id}).populate('owner', '-password');
+
+
+    const project_details = await Project_schema.find({ owner: user_id });
+
+
     // req.user = user_deails;
 
     // req.project = project_details;
 
-  res.json({ user_deails, project_details });
+    res.json({ user_deails, project_details });
 
 
 
     // next();
 
 
- } catch (error) {
-     
-     // console.log("tooken varification error ");
-     return res.json({msg : "not find error "});
- }
+  } catch (error) {
+
+    // console.log("tooken varification error ");
+    return res.json({ msg: "not find error " });
+  }
 
 
 
@@ -539,7 +685,7 @@ router.route('/users').get(all_user_details, (req, res) => {
 
   const users = req.user;
 
-  res.json({ users});
+  res.json({ users });
 
   // res.json({user_tooken});
 
@@ -556,14 +702,14 @@ router.route('/users').get(all_user_details, (req, res) => {
 
 //  , projects_details
 
-router.route('/allproject').get(all_project ,(req, res) => {
+router.route('/allproject').get(all_project, (req, res) => {
 
   const all_project_data = req.project;
 
-  console.log(all_project_data);
+  // console.log(all_project_data);
 
 
-  res.json({all_project_data});
+  res.json({ all_project_data });
 
 });
 
@@ -646,7 +792,7 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
 
     const id = req.params.id;
 
-    const { username, bio, github ,linkedin } = req.body;
+    const { username, bio, github, linkedin } = req.body;
 
 
     if (!image) {
@@ -655,7 +801,7 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
 
       // const project = await Project_schema.findByIdAndUpdate(id, {  $set : updateuserdata}, { new: true });
 
-      const project = await User.findByIdAndUpdate(id, { username, bio, github ,linkedin }, { new: true });
+      const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin }, { new: true });
 
       // const project = await Project_schema.updateOne({_id : id}, { $set : updateuserdata });
 
@@ -686,7 +832,7 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
       if (oldphotopath === "default.jpg") {
 
 
-        const project = await User.findByIdAndUpdate(id, { username, bio, github ,linkedin , photo : image_name }, { new: true });
+        const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin, photo: image_name }, { new: true });
 
         if (!project) {
           console.log("user not found");
@@ -703,13 +849,13 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
 
 
         // const filePath = path.join(__dirname, '../../frontend_react/public/users', oldphotopath);
-       
-       
+
+
         const filePath = path.join(__dirname, '../public/images', oldphotopath);
 
         // Delete the file from the filesystem
         fs.unlink(filePath, async (err) => {
-  
+
           // if (err) return res.json({ message: 'File deletion error', err });
 
           if (err) {
@@ -718,7 +864,7 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
 
               // File does not exist
               console.log(`File at ${filePath} not found, but the database entry exists.`);
-          
+
 
               // You can still continue with your logic here
 
@@ -726,20 +872,20 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
               // const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys , image : image_name }, { new: true });
 
 
-              const project = await User.findByIdAndUpdate(id, { username, bio, github ,linkedin , photo : image_name }, { new: true });
+              const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin, photo: image_name }, { new: true });
 
 
               if (!project) {
-                console.log("user not found");
+                // console.log("user not found");
                 res.json('user not found');
-      
+
               } else {
-      
-      
+
+
                 res.json({ message: "update user sussefully ", updatedproject: project });
               }
-               
-      
+
+
 
             } else {
               // Some other error occurred
@@ -749,25 +895,25 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
             // File successfully deleted
 
             console.log(`File at ${filePath} found, and also the database entry exists.`);
-          
+
 
             // const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys , image : image_name }, { new: true });
 
 
-             const project = await User.findByIdAndUpdate(id, { username, bio, github ,linkedin , photo : image_name }, { new: true });
+            const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin, photo: image_name }, { new: true });
 
 
             if (!project) {
               console.log("user not found");
               res.json('user not found');
-    
+
             } else {
-    
-    
+
+
               res.json({ message: "update user sussefully ", updatedproject: project });
             }
-             
-    
+
+
 
 
 
@@ -777,7 +923,7 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
 
         });
 
-      
+
       }
 
 
@@ -793,13 +939,13 @@ router.route('/updateuser/:id').patch(user_details, upload.single('image'), asyn
 
 
 
-    
+
 
   catch (error) {
 
-  res.json({ message: " Couldn't update user", gadbad: error });
+    res.json({ message: " Couldn't update user", gadbad: error });
 
-}
+  }
 
 
 })
@@ -865,7 +1011,7 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
       if (oldphotopath === "default.jpg") {
 
 
-        const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys , image : image_name }, { new: true });
+        const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys, image: image_name }, { new: true });
 
         if (!project) {
           console.log("Project not found");
@@ -882,13 +1028,13 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
 
         // const filePath = path.join(__dirname, '../../frontend_react/public/users', oldphotopath);
-       
-       
+
+
         const filePath = path.join(__dirname, '../public/images', oldphotopath);
 
         // Delete the file from the filesystem
         fs.unlink(filePath, async (err) => {
-  
+
           // if (err) return res.json({ message: 'File deletion error', err });
 
           if (err) {
@@ -897,24 +1043,24 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
               // File does not exist
               console.log(`File at ${filePath} not found, but the database entry exists.`);
-          
+
 
               // You can still continue with your logic here
 
 
-              const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys , image : image_name }, { new: true });
+              const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys, image: image_name }, { new: true });
 
               if (!project) {
                 console.log("Project not found");
                 res.json('Project not found');
-      
+
               } else {
-      
-      
+
+
                 res.json({ message: "update project sussefully ", updatedproject: project });
               }
-               
-      
+
+
 
             } else {
               // Some other error occurred
@@ -924,21 +1070,21 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
             // File successfully deleted
 
             console.log(`File at ${filePath} found, and also the database entry exists.`);
-          
 
-            const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys , image : image_name }, { new: true });
+
+            const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys, image: image_name }, { new: true });
 
             if (!project) {
               console.log("Project not found");
               res.json('Project not found');
-    
+
             } else {
-    
-    
+
+
               res.json({ message: "update project sussefully ", updatedproject: project });
             }
-             
-    
+
+
 
 
 
@@ -948,7 +1094,7 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
         });
 
-      
+
       }
 
 
@@ -964,13 +1110,13 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
 
 
-    
+
 
   catch (error) {
 
-  res.json({ message: " Couldn't update project", gadbad: error });
+    res.json({ message: " Couldn't update project", gadbad: error });
 
-}
+  }
 
 
 })

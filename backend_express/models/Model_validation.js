@@ -9,7 +9,7 @@ const signupschema = z.object({
 
     email: z.string({message : "invalid email address is string"}).email({message : "invalid email address"}),
 
-    password: z.string({message : "invalid password is string"}).min(8).max(20),
+    password: z.string({message : "invalid password is string"}).min(8 , {message : "password must be al least 8 char."}).max(20 , {message : "password is not contain longer then 20 char."}),
 
 
     phone: z.string({message : "invalid phone is string"}).min(10, {message : "phone number must be at least 10 char ."}).max(15 ,  {message : "phone number must not be more then 10 char ."}),
