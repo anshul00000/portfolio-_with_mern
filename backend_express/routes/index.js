@@ -186,7 +186,8 @@ router.route('/verifyotp').post((req, res) => {
     delete otpStore[email]; // OTP verified, remove it
     res.status(200).json({ message: 'OTP verified successfully', status: 200 });
   } else {
-    res.status(400).json({ message: `Invalid OTP or OTP expired ${otpStore[email]} , and your otp is ${otp}`, status: 400 });
+    // res.status(400).json({ message: `Invalid OTP or OTP expired ${otpStore[email]} , and your otp is ${otp}`, status: 400 });
+    res.status(400).json({ message: `Invalid OTP or OTP expired`, status: 400 });
   }
 });
 
