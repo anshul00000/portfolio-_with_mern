@@ -972,7 +972,7 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
     const id = req.params.id;
 
-    const { name, description, technologys } = req.body;
+    const { name, description, technologys , github_link ,online_link } = req.body;
 
 
     if (!image) {
@@ -981,7 +981,7 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
       // const project = await Project_schema.findByIdAndUpdate(id, {  $set : updateuserdata}, { new: true });
 
-      const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys }, { new: true });
+      const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys ,github_link ,online_link }, { new: true });
 
       // const project = await Project_schema.updateOne({_id : id}, { $set : updateuserdata });
 
