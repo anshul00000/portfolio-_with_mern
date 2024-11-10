@@ -5,6 +5,27 @@
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
 }
 
+
+/* in a react i make animation like this @keyframes nav_slider {
+
+  0%{
+     right: -50%;
+  }
+  100%{
+    right: 0;
+  }
+
+
+}     but problam is i im run this animation only once when page was loaded  */
+
+
+/* body{
+  background-color: gray ; 
+} */
+
+
+
+
 .no-scroll {
   overflow: hidden;
 }
@@ -12,7 +33,7 @@
 
 
 dialog::backdrop{
-  background-color: rgba(0, 255, 255, 0.17);
+  background-color: rgba(0, 255, 255, 0);
 
 }
 
@@ -22,8 +43,9 @@ dialog::backdrop{
   position: absolute;
   top: 10%;
   right:10%;
-  background-color: rgb(0, 0, 0);
-  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgb(255, 255, 255);
+  mix-blend-mode: difference;
   padding: 5px;
   border-radius: 5px;
 
@@ -37,7 +59,7 @@ dialog{
   padding: 0px !important;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(255, 0, 0, 0.175);
+  background-color: rgba(255, 0, 0, 0);
   border: none;
   backdrop-filter: blur(10px);
 
@@ -46,7 +68,7 @@ dialog{
 dialog div{
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 247, 255, 0.207);
+  background-color: rgba(0, 247, 255, 0);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,17 +83,53 @@ dialog div div form{
   width: 50%;
   height: 50%;
   padding: 30px;
-  background-color: rgba(150, 72, 72, 0.233);
+  background-color: rgba(150, 72, 72, 0);
 
+}
+
+dialog div div form input {
+  outline: none;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white ;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+dialog div div form button{
+  margin: 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(0, 69, 72);
+  color: white;
+  cursor: pointer;
 }
 
 #root{
 
+  background-image: url("public/faded_gallery-OfdOEdGYiuk-unsplash.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+
+
+
+
   width: 100%;
   height: 100vh;
   overflow-x:hidden ;
+
+  
   border: 1px solid black;
   position: relative;
+
+ /* background-color: rgb(0, 0, 0); */
+ background-color: #111010;
+
+
+ color: white !important;
   /* background-color: rgb(118, 214, 240); */
   /* background-image: url("public/backgroung.jpg"); */
   background-size: cover;
@@ -279,8 +337,231 @@ border-radius: 15px;
   border-bottom: 1px solid black;
   border-left: 0px solid black;
   border-right: 0px solid black;
-  color: black;
+  color: rgb(0, 0, 0);
 }
+
+
+.nav_icon{
+  color: red ;
+}
+
+/* ************************************************************************************************************************
+************************************************************************************************************************
+******************************************          landing start          *********************************************
+************************************************************************************************************************
+************************************************************************************************************************ */
+
+.number_count{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20rem;
+  color: rgb(255, 255, 255);
+  z-index: 999;
+
+  opacity: 0;
+
+  animation: opacity 3s;
+
+
+}
+
+@keyframes opacity{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+  
+}
+
+.landing_page{
+  /* background-color: rgba(0, 0, 0, 0.171) ; */
+  /* box-shadow: 0px 0px 10px lightgoldenrodyellow ; */
+
+    /* filter: blur(5px); */
+
+  color: black;
+
+
+
+
+  margin: auto;
+  /* padding-top:100px; */
+  padding: 100px 50px;
+  width: 100%;
+  /* height: 100vh; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+
+  animation:landing_page_animation 2s ease ;
+  animation:blurness 2s ease;
+
+
+
+
+}
+
+@keyframes blurness {
+  
+  0%{
+    filter: blur(100px);
+  }
+
+  100%{
+    filter: blur(0px);
+  }
+
+}
+
+.landing_page ._h1 {
+  font-size: 7rem;
+  color: rgb(255, 255, 255);
+  mix-blend-mode: difference;
+
+}
+
+.l_p{
+  /* width: 0%; */
+  color: rgb(255, 255, 255);
+  mix-blend-mode: difference;
+}
+
+.image_effect_div{
+  /* background-color: red; */
+  height: 200px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.landing_page  .img_1 {
+  width: 100px;
+  display: inline;
+  
+  transform: rotate(20deg);
+
+  animation: width_change 5s ease-in-out alternate-reverse infinite;
+  /* animation-delay: 5s ; */
+
+}
+
+
+@keyframes width_change {
+  
+  0%{
+    width: 0px;
+
+
+  }
+
+  30%{
+    width: 0px;
+  }
+
+  60%{
+    width: 150px;
+
+  }
+
+  100%{
+    width: 150px;
+  }
+
+
+}
+
+
+
+.landing_page .p_2 {
+  font-size: 4rem;
+  display: inline;
+  color: rgba(17, 194, 229, 0);
+  mix-blend-mode: difference;
+ 
+  -webkit-text-stroke-width: 1px;   
+  -webkit-text-stroke-color: rgb(17, 194, 229) ;   
+}
+
+
+
+
+
+.image_slider{
+  margin-top: 100px;
+  position: relative;
+  width: 100%;
+  height: 150px;
+  /* background-color: rgba(207, 216, 83, 0.811); */
+  display: flex;
+  gap: 10%;
+
+ overflow-x: hidden;
+
+
+}
+
+/* .image_slider::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(10px);
+
+  z-index: 1;
+} */
+
+
+
+.image_slider img{
+  /* width: 70px; */
+  height: 80px;
+  /* mix-blend-mode: darken; */
+  /* mix-blend-mode: difference; */
+
+
+
+
+  animation-name: move;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* animation-direction: alternate; */
+
+}
+
+@keyframes move {
+  from{
+      transform: translateX(0);
+  }
+  to{
+      transform: translateX(-100vw);
+  }}
+
+
+@keyframes landing_page_animation {
+  
+  0%{
+  transform: scale(0);
+  /* transform: translateX(-10%); */
+      
+  }
+
+  100%{
+    transform: scale(1);
+  /* transform: translateX(0%); */
+
+  }
+
+}
+
+
 
 .home_page_1{
   display: flex;
@@ -290,6 +571,7 @@ border-radius: 15px;
   flex-wrap: wrap;
   padding: 5% 0px;
   padding-bottom: 20px;
+
   
 
 }
@@ -314,12 +596,32 @@ border-radius: 15px;
 
 
 .home_img img{
-  /* height: 650px; */
   width: 85%;
   padding-left: 20px;
-  /* box-shadow:2px 2px red; */
-  filter: drop-shadow(4px 5px 0px rgba(0, 0, 0, 0.351));
-  /* width: 70%; */
+
+
+  animation:photoanimation 1s ease-in-out;
+
+  
+}
+
+@keyframes photoanimation {
+  
+  0%{
+  transform: scale(0);
+      
+  }
+
+  70%{
+    transform: scale(1.2);
+
+  }
+
+  100%{
+    transform: scale(1);
+
+  }
+
 }
 
 /* .home_page_1 div{
@@ -347,8 +649,10 @@ border-radius: 15px;
   flex-wrap: wrap;
   margin: 0px 40px;
   background-color: rgb(235, 229, 229);
-  box-shadow: 0px 0px 50px rgb(161, 159, 159) ;
+  color: black;
+  box-shadow: 0px 0px 20px rgb(161, 159, 159) ;
 }
+
 
 
 .home_page_2 div{

@@ -1,13 +1,13 @@
-/* body{
+body{
     background-color: rgb(118, 214, 240);
-    background-image: url("public/backgroung.jpg");
+    /* background-image: url("faded_gallery-JEludq8wsD8-unsplash.jpg"); */
     background-size: cover;
     background-attachment: fixed;
-} */
+}
 
 
 :root {
-    --bgcolor: rgb(0, 0, 0);
+    --bgcolor: rgba(0, 0, 0, 0);
     /* --bgcolor : rgb(0, 0, 0) ; */
     --textcolor: rgb(255, 255, 255);
     /* --boxshadow : rgb(0, 255, 229); */
@@ -20,20 +20,25 @@
     /* color: rgb(255, 255, 255) !important; */
     /* background-color: rgba(125, 125, 135, 0.51); */
     /* border-radius: 10px; */
-    box-shadow: 0px 1px black;
+    box-shadow: 0px 1px rgb(255, 255, 255);
     /* border-bottom: 1px solid rgb(0, 0, 0); */
     /* border-top: 1px solid black; */
-    border-radius: 5px;
+    /* border-radius: 5px; */
   }
   
   .brand_name {
-    color: black !important;
-    letter-spacing: 2vw;
-    text-shadow: 1px 0px var(--boxshadow);
+    color: rgb(255, 255, 255) ;
+    mix-blend-mode: difference;
+    letter-spacing: 0.5vw;
+    border-bottom: 1px solid rgb(255, 255, 255);
+    /* background-color: aqua; */
+    /* text-shadow: 1px 0px var(--boxshadow); */
   }
   nav a {
     /* font-size: 18px; */
-    color: black !important;
+    color: rgb(255, 255, 255) !important;
+      mix-blend-mode: difference;
+    
     margin-left: 20px;
     padding: 0.5% 2% !important;
   }
@@ -44,9 +49,10 @@
     z-index: 999;
 
     width: 100%;
-    backdrop-filter: blur(20px);
+    /* backdrop-filter: blur(20px); */
     background-color: rgba(182, 18, 18, 0);
-    color: black;
+    color: rgb(255, 255, 255) !important;
+      /* mix-blend-mode: difference; */
     box-shadow: 0px 0px 5px black;
   }
   
@@ -54,7 +60,8 @@
     background-color:  rgba(117, 160, 173, 0);
     backdrop-filter: blur(10px);
 
-    color: black;
+    color: rgb(255, 255, 255);
+    mix-blend-mode: difference;
   }
 
 
@@ -68,6 +75,9 @@
   /* --------------------------------------- navbar -- end ----------------- */
   
 
+  /* .email_froget{
+    display: none;
+  } */
 
 
 .main_h1{
@@ -177,7 +187,7 @@
 
 .project_links a{
     text-decoration: none; 
-    color: black;
+    color: rgb(255, 255, 255);
     /* padding: 2% 12% 2% 12%; */
     /* width: 30%;
     height: 10%; */
@@ -202,7 +212,8 @@
 .project_div_text button{
     outline: none;
     background-color: transparent;
-    border: 1px solid black;
+    
+    border: 1px solid rgb(0, 0, 0);
     width: 50%;
     height: 15%;
     /* padding: 1% 20% 1% 20%; */

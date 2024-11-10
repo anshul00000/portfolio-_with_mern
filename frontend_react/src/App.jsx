@@ -8,7 +8,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-import {Route , Routes} from 'react-router-dom' ;
+// import {Route , Routes} from 'react-router-dom' ;
+
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
+
+
 import Contact from '../components/Contact';
 import Error from '../components/Error';
 import Home from '../components/Home';
@@ -21,6 +26,9 @@ import Logout from '../components/Logout';
 import File from '../components/File';
 import Appbar from '../components/Appbar';
 
+
+import SmoothScroll from '../components/SmoothScroll';
+
 function App() {
 
   useEffect(() => {
@@ -32,14 +40,13 @@ function App() {
 
 
   return (
-    <>
-   
-{/* <Navbar/> */}
+  <>
 
 <Appbar/>
 
+            
      <Routes>
-             
+
              <Route  path="/" element={<Home/>} />
              <Route  path="/about" element={<About/>} />
              <Route  path="/contact" element={<Contact/>} />
@@ -50,11 +57,18 @@ function App() {
              <Route  path="/file" element={<File/>} />
              {/* <Route  path="/contact/Name" element={<name />} /> */}
              <Route path="/*" element={<Error />} />
+
+
+
      </Routes>
+           
+
+           
 
 
-    
-    </>
+</>
+
+ 
 
     
   )

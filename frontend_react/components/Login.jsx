@@ -1,6 +1,8 @@
-import React , {useContext, useState} from 'react'
+import React , {useContext, useRef, useState} from 'react'
 import Button from '@mui/material/Button';
 import Footer from './Footer';
+
+
 import { Context } from '../public/context/context_api';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +14,157 @@ import {  toast } from 'react-toastify';
 
 function Login() {
   
+  const [dialog , set_dialog] = useState(false) ; 
+
+  const [on_password , set_on_password] = useState(false) ;
+
+ 
+  const [forget_p , set_forget_p ]=  useState({
+    email : "",
+    password : "",
+  });
+
+  const dialogRef = useRef(null);
+
+
+  const openDialog = () => {
+    if (dialogRef.current) {
+  
+      // set_project_details({
+      //   id : id,
+      //   name: n,
+      //   description: d,
+      //   technologys: t,
+      // })
+
+       dialogRef.current.showModal();
+      set_dialog(true);
+    }
+  };
+  
+
+
+  const closeDialog = () => {
+  
+    if (dialogRef.current) {
+
+      // set_project_details({
+      //   id : "",
+      //   name: "", 
+      //   description: "",
+      //   technologys: "",
+      //   file: null,
+      // })
+
+
+      dialogRef.current.close();
+      set_dialog(false);
+    }
+  };
+  
+
+
+  const forget_p_value =(e)=>{
+
+    const {name , value } = e.target ; 
+  
+    set_forget_p((p)=>{
+      return{
+       ...p,
+        [name] : value,
+      }
+    });
+  
+  
+   }
+  
+  const forget_password=async(e)=>{
+    e.preventDefault()
+
+if(forget_p.password === ""){
+  // forget_p.email 
+
+
+
+  try {
+    const response = await fetch(`${backend_url}/forget` , {
+      method : "POST" ,     // this is default express url 
+     
+     headers : {
+        "content-type" : "application/json",
+        },
+        body : JSON.stringify(forget_p),
+     
+     })
+     
+     // toast("TRY KIYA");
+     
+     const data = await response.json();
+   
+
+      // alert(data);
+      console.log(data);
+
+      if(data){
+        set_on_password(!on_password);
+      }else{
+        alert("email not found please create account ");
+      }
+
+
+     }catch (error) {
+     toast("url error");
+   console.log("register servar error with express URI " , error);
+     }
+
+
+    }else{
+
+
+      
+  try {
+    const response = await fetch(`${backend_url}/forget` , {
+      method : "POST" ,     // this is default express url 
+     
+     headers : {
+        "content-type" : "application/json",
+        },
+        body : JSON.stringify(forget_p),
+     
+     })
+     
+     // toast("TRY KIYA");
+     
+     const data = await response.json();
+   
+
+      // alert(data);
+      console.log(data);
+
+      if(data){
+        alert("your password is changed");
+        set_on_password(!on_password);
+      }else{
+        alert("somthing went wrong in backend to change password");
+      }
+
+
+     }catch (error) {
+     toast("url error");
+   console.log("register servar error with express URI " , error);
+     }
+
+
+    }
+
+
+
+
+
+
+  }
+
+
   const {save_tooken , backend_url} =  useContext(Context);
 
   const navitate = useNavigate();
@@ -121,6 +274,41 @@ function Login() {
   return (
     <>
    
+
+   <dialog ref={dialogRef}>
+        {/* <p>This is a dialog</p>
+        <button onClick={closeDialog}>Close</button> */}
+
+        <div className='div'>
+
+          <div className='update_project_div'>
+
+     
+          <form onSubmit={forget_password}>
+
+
+<input className='email_froget' style={{display: on_password ? 'none' : 'block',}} onChange={forget_p_value} name="email" value={forget_p.email} type="email" placeholder='email'/>
+
+<input style={{display: on_password ? 'block' : 'none',}} name="password" value={forget_p.password} onChange={forget_p_value} type="text" placeholder='password'/>
+
+<button type='sumbit'>Submut</button>
+
+</form>
+
+
+          </div>
+
+
+        </div>
+
+
+        <button className='clode_dilog_btn' onClick={closeDialog}>Close</button>
+
+
+      </dialog>
+
+
+
    <div className='home_page_1'>
     <div>
     {/* <h1>hyy this is home page 🏠</h1> */}
@@ -143,6 +331,14 @@ function Login() {
 
 <br />
 {/* <button type="submit">Login</button> */}
+
+
+<p onClick={()=>openDialog()} style={{color:"red"}}>forget your password </p>
+
+
+
+
+
 <Button type='submit' variant="contained">Login</Button>
 </form>
    </div>

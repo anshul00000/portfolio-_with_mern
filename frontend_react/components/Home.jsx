@@ -1,12 +1,21 @@
-import React , { useContext, useState }  from 'react'
+import React , { useContext, useEffect, useRef, useState }  from 'react'
 
 import Button from '@mui/material/Button';
 import Footer from './Footer';
 
 import { Context } from '../public/context/context_api';
 
+import { useSpring , animated } from 'react-spring';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+
+
+
 
 function Home() {
+
+
+
 
     const { user ,backend_url } =  useContext(Context);
 
@@ -60,10 +69,88 @@ function Home() {
            }
         
 
+           function Number({n}){
+            const { number } = useSpring({
+              from : {number : 0 },
+              number : n ,
+              delay : 200 , 
+              config : {mass : 1 , tension : 20 , friction : 10},
+            });
+
+            return <animated.div>{number.to((n)=>n.toFixed(0))}</animated.div> ;
+
+
+           }
+
+
+
+
 
   return (
     <>
+
+
+
+
+<h1 className="number_count">  <Number n={100}  />   </h1>
+
+   <div className="landing_page">
+
+
+<p className='_h1'>Your Portfolio,</p>
+
+
+
+
+
+
+
+<div className='image_effect_div'>
+
+<img className='img_1' src="public/idea.png" alt="icon" />
+<p className='p_2'> Your Professional Story .</p>
+
+
+
+
+
+</div>
+   
+<p className='l_p'>This Helps to Create to Your Project Playlist Just Create Your acount and Uplad Your Projects </p>
+
+
+<div className="image_slider">
+
+<img src="public/tasks.png" alt="ll" />
+<img src="public/asas.png" alt="ll" />
+<img src="public/innovation.png" alt="ll" />
+<img src="public/staff-development.png" alt="ll" />
+<img src="public/time-management.png" alt="ll" />
+
+<img src="public/tasks.png" alt="ll" />
+<img src="public/asas.png" alt="ll" />
+<img src="public/innovation.png" alt="ll" />
+<img src="public/staff-development.png" alt="ll" />
+<img src="public/time-management.png" alt="ll" />
+
+
+<img src="public/tasks.png" alt="ll" />
+<img src="public/asas.png" alt="ll" />
+<img src="public/innovation.png" alt="ll" />
+<img src="public/staff-development.png" alt="ll" />
+<img src="public/time-management.png" alt="ll" />
+  
+
+
+</div>
+
+
+
+   </div>
+
     <div className='home_page_1'>
+      
+
       <div>
       {/* <h1>hyy this is home page 🏠</h1> */}
       <p className='main_h1'>hyy this is home page</p>
@@ -78,9 +165,12 @@ function Home() {
 
      <div className='home_img'>
 
-      <img src="boy-Photoroom.png" alt="" />
+      {/* <img src="boy-Photoroom.png" alt="" /> */}
 
-      {/* <img src="2kKUUaoaDq1Umy9tokiuLWIMJDF.svg" alt="" /> */}
+
+      {/* <img src="letter-x.gif" alt="" /> */}
+
+      <img src="2kKUUaoaDq1Umy9tokiuLWIMJDF.svg" alt="" />
 
 
       {/* <img src="../backend_express/public/images/default.jpg" alt="kk" /> */}
@@ -103,8 +193,8 @@ function Home() {
     
     {/* <h1>this is social media link</h1> */}
    <div className="home_page_2">
-      <div>
-        <span>
+      <div className='div1 '>
+        <span className='animate'>
         <h1>M -</h1>   
        <p>MongoDB</p>
         </span>
@@ -134,6 +224,9 @@ function Home() {
       
    </div>
     <Footer/>
+
+
+
    </>
   )
 }

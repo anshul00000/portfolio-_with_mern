@@ -17,9 +17,7 @@ function Logout() {
 //    navigate("/login");
 } , [] );
 
-
-
-  
+ 
   return <Navigate to="/login" /> ;
   // return (<></>);
 }

@@ -2,13 +2,64 @@
 
 import { createContext, useEffect, useState } from "react";
 
-// import {  toast } from 'react-toastify';
+
+import {  toast } from 'react-toastify';
+
 
 
 const Context = createContext();
 
 
 const Contextstate = (props)=>{
+
+  // const backend_url = 'https://portfolio-with-mern-backend.onrender.com';
+
+    const backend_url = 'http://localhost:3000';
+
+
+    const db = async()=>{
+
+      
+   try {
+
+    const response = await fetch(`${backend_url}/`, {
+      method: 'GET',
+      headers: {
+        'Authorization': "application/json" ,
+       },
+    })
+
+    const data = await response.json();
+
+
+    console.log(data);
+
+
+  data.message === "true" ? console.log(data) :  toast.error("data base error");
+
+  // if(data.message === "true"){
+  //   console.log(data)
+  // }else{
+  //   toast("data base error")
+  // }
+
+
+    
+   } catch (error) {
+    console.log(data);
+    
+   }
+
+    }
+
+
+
+    db();
+
+
+
+  const {connect_db , connect_db_c} = useState();
+
 
 
     // const [state , setstate] = useState(localStorage.getItem("tooken"));
@@ -22,9 +73,7 @@ const Contextstate = (props)=>{
     const [run_effect , set_run_effect] = useState(true);
     
 
-    const backend_url = 'https://portfolio-with-mern-backend.onrender.com';
-
-    // const backend_url = 'http://localhost:3000';
+    
     
     // console.log(state);
     // console.log("this is user",user);

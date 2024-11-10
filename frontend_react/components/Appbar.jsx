@@ -11,6 +11,9 @@ import { NavLink } from "react-router-dom";
 import { Context } from "../public/context/context_api";
 
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHouse , faPhone , faAddressCard ,faDiagramProject } from '@fortawesome/free-solid-svg-icons';
+
 
 function Appbar() {
 
@@ -52,16 +55,18 @@ function Appbar() {
                                 <Nav className="justify-content-end flex-grow-1 nav_link">
                                     
                                     <Nav.Link as={NavLink} to={"/"}>
-                                        Home
+{/* <FontAwesomeIcon style={{color:"red"}} icon={faHouse}/>
+<FontAwesomeIcon icon={faHouse} bounce style={{color: "#B197FC",}} /> */}
+<FontAwesomeIcon icon={faHouse} style={{color: "#63E6BE",}} />
                                     </Nav.Link>
                                     <Nav.Link as={NavLink} to={"/contact"}>
-                                        Contact
+                                    <FontAwesomeIcon icon={faPhone} style={{color: "#63E6BE",}}  /> 
                                     </Nav.Link>
                                     <Nav.Link as={NavLink} to={"/about"}>
-                                        About
+                                    <FontAwesomeIcon icon={faAddressCard} style={{color: "#63E6BE",}}/> About
                                     </Nav.Link>
                                     <Nav.Link as={NavLink} to={"/Projects"}>
-                                        Projects
+                                    <FontAwesomeIcon icon={faDiagramProject}  style={{color: "#63E6BE",}}/>  Projects
                                     </Nav.Link>
                                     <Nav.Link as={NavLink} to={"/file"}>
                                         P/U
@@ -71,12 +76,12 @@ function Appbar() {
 
                                     {islogin ? 
                                          (<Nav.Link as={NavLink} to={"/logout"}>
-                                            Logout
+                                            L/O
                                         </Nav.Link>) :(<>
                                           
                                           
                                     <Nav.Link as={NavLink} to={"/login"}>
-                                        Login
+                                        L/i
                                     </Nav.Link>
                                     <Nav.Link as={NavLink} to={"/signup"}>
                                     signup
