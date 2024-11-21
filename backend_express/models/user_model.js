@@ -106,20 +106,7 @@ userschema.methods.generateToken = async function(){
 
 userschema.methods.password_compar = async function(password){
 
-  
-    // Load hash from your password DB.
-
-    // const a =  "anshul";
-
-    // bcrypt.compare(password, this.password ,async function(err, result) {
-    //         // result == true
-             
-    //         const user_ = result ;
-
-    //        return (user_);
-            
-    //     });
-
+    
    const a =  bcrypt.compare(password, this.password).then(function(result) {
         // result == true
         return result ; 
@@ -127,7 +114,6 @@ userschema.methods.password_compar = async function(password){
 
         return a ;
 
-        
     
 }
 

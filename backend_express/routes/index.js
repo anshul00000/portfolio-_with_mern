@@ -17,7 +17,7 @@ dotenv.config();
 
 // Store OTP in memory (For production, use a database)
 const otpStore = {};
-
+ 
 
 const conect_fun = async () => {
   connect_db = await connectdb();  // to connect data base fore ferform querys 
@@ -46,7 +46,7 @@ const { my_anshul } = require("../middlewares/validater_middleware_");
 
 // const {user_details , projects_details} = require('../middlewares/user_details');
 
-const { user_details, all_user_details } = require('../middlewares/user_details');
+const { user_details, all_user_details } = require('../middlewares/user_details')  ; 
 
 // user_details
 
@@ -530,7 +530,7 @@ router.route('/checkfollow').post(user_details, async (req, res) => {
     if (isFollower || isFollowing) {
       return res.json({ isFollower, isFollowing });
     } else {
-      return res.json({ msg: "User is neither a follower nor following." });
+      return res.json({isFollower, isFollowing });
     }
 
   } catch (error) {
