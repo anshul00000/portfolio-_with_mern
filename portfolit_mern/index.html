@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+     <link rel="shortcut icon" href="https://static.vecteezy.com/system/resources/thumbnails/011/658/583/small_2x/letter-a-abstract-logo-flat-capital-letter-a-abstract-logo-icon-image-with-transparent-background-png.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+    <title>PORTFOLIO | ANSHUL</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css"> -->
+ 
+  </head>
+
+
+  <body>
+
+
+    <div id="root" class="smooth-scroll"></div>
+
+
+    <script type="module" src="/src/main.jsx"></script>
+
+
+<!-- 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+
+
+
+    <script>
+
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Using Locomotive Scroll from Locomotive https://github.com/locomotivemtl/locomotive-scroll
+      
+      const locoScroll = new LocomotiveScroll({
+        el: document.querySelector(".smooth-scroll"),
+        smooth: true
+      });
+      // each time Locomotive Scroll updates, tell ScrollTrigger to update too (sync positioning)
+      locoScroll.on("scroll", ScrollTrigger.update);
+      
+      // tell ScrollTrigger to use these proxy methods for the ".smooth-scroll" element since Locomotive Scroll is hijacking things
+      ScrollTrigger.scrollerProxy(".smooth-scroll", {
+        scrollTop(value) {
+          return arguments.length ? locoScroll.scrollTo(value, 0, 0) : locoScroll.scroll.instance.scroll.y;
+        }, // we don't have to define a scrollLeft because we're only scrolling vertically.
+        getBoundingClientRect() {
+          return {top: 0, left: 0, width: window.innerWidth, height: window.innerHeight};
+        },
+        // LocomotiveScroll handles things completely differently on mobile devices - it doesn't even transform the container at all! So to get the correct behavior and avoid jitters, we should pin things with position: fixed on mobile. We sense it by checking to see if there's a transform applied to the container (the LocomotiveScroll-controlled element).
+        pinType: document.querySelector(".smooth-scroll").style.transform ? "transform" : "fixed"
+      });
+      
+      
+      // --- RED PANEL ---
+      gsap.from(".line-1", {
+        scrollTrigger: {
+          trigger: ".line-1",
+          scroller: ".smooth-scroll",
+          scrub: true,
+          start: "top bottom",
+          end: "top top",
+          onUpdate: self => console.log(self.direction)
+        },
+        scaleX: 0,
+        transformOrigin: "left center", 
+        ease: "none"
+      });
+      
+      
+      // --- ORANGE PANEL ---
+      gsap.from(".line-2", {
+        scrollTrigger: {
+          trigger: ".orange",
+          scroller: ".smooth-scroll",
+          scrub: true,
+          pin: true,
+          start: "top top",
+          end: "+=100%"
+        },
+        scaleX: 0, 
+        transformOrigin: "left center", 
+        ease: "none"
+      });
+      
+      
+      // --- PURPLE/GREEN PANEL ---
+      var tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".purple",
+            scroller: ".smooth-scroll",
+            scrub: true,
+            pin: true,
+            start: "top top",
+            end: "+=100%"
+          }
+        });
+      
+      tl.from(".purple p", {scale: 0.3, rotation:45, autoAlpha: 0, ease: "power2"})
+        .from(".line-3", {scaleX: 0, transformOrigin: "left center", ease: "none"}, 0)
+        .to(".purple", {backgroundColor: "#28a92b"}, 0);
+      
+      
+      
+      // each time the window updates, we should refresh ScrollTrigger and then update LocomotiveScroll. 
+      ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
+      
+      // after everything is set up, refresh() ScrollTrigger and update LocomotiveScroll because padding may have been added for pinning, etc.
+      ScrollTrigger.refresh();
+      
+      
+      
+          </script> -->
+
+
+
+  
+
+
+  </body>
+</html>

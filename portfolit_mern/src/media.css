@@ -1,0 +1,486 @@
+@media screen and (max-width:1250px)  {
+   
+    .user_card{
+
+        /* background-color: red !important; */
+        width: 70% !important;
+    }
+}
+
+@media screen and (max-width:1170px)  {
+    
+    .page1_p {
+        font-size: 30px !important;
+        /* background-color: red; */
+    
+    }
+
+}
+
+
+@media screen and (max-width:1000px) {
+
+    .form {
+       
+        width: 80vw !important;
+       
+        padding:0px !important;
+    
+    }
+
+    .user_card{
+        width: 90% !important;
+    }
+
+    
+.project_div{
+    width: 90vw !important;
+   
+  }
+
+  /* .project_div_text button{
+    width: 50%;
+    height: 13% !important;
+  
+    margin-bottom: 50px !important;
+  
+  
+  } */
+
+}
+
+
+
+@media screen and (max-width:800px)  {
+    #page1_contant {
+      
+        justify-content: center !important;
+        gap: 100px;
+    
+        /* background-color: red !important; */
+    }
+
+    .header_name{
+        font-size: 25px;
+        /* background-color: red; */
+        padding: 10px;
+    }
+
+    #page2 div div {
+        /* background-color: blue; */
+      
+        font-size: 17px !important;
+
+    }
+
+    .home_page_2 {
+
+
+        padding: 0% 0px !important;
+       
+        margin: 0px 0px !important;
+        background-color: rgb(0, 0, 0) !important;
+        color: rgb(255, 255, 255) !important;
+        
+       
+    }
+
+    .home_page_2 div{
+     
+        border-left:2px solid rgb(255, 255, 255) !important ;
+     
+    
+      }
+      
+      .home_page_2 div:nth-child(1){
+        border-left:0px solid rgb(255, 255, 255)  !important;
+      
+      }
+
+
+      .project_flex {
+
+        flex-direction: column;
+        gap: 0px !important;
+    }
+
+
+    .project_box2{
+        gap: 0px !important;
+        /* background-color: blue; */
+    }
+
+
+
+
+    .project_user {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+
+    .porject_div_link_img {
+       
+        width: 100% !important;
+      
+    }
+
+    .project_user_img {
+        width: 150px !important;
+        height: 150px !important;
+       }
+
+
+       .project_user button{
+        width: 100% !important;
+    }
+
+
+
+
+    
+}
+
+@media screen and (max-width:650px) {
+
+    .user_card{
+        gap: 10px !important;
+    }
+
+    .project_main_box {
+        padding: 10px !important;
+    }
+
+    .project_div{
+
+        gap: 10px !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column-reverse;
+      margin-top: 20px !important;
+      }
+
+      .project_div_image {
+         width: 100% !important;
+         height: 200px !important;
+    }
+
+    .project_div_text {
+        width: 100% !important;
+        height: auto;
+        padding: 20px;
+        word-wrap: break-word;
+        /* background-color: rgba(189, 64, 64, 0.386); */
+    }
+
+    .project_links {
+       justify-content: center;
+    }
+
+   
+
+}
+
+
+@media screen and (max-width:600px) {
+
+    .porject_div_link_img {
+  
+        flex-direction: column ;
+        justify-content: space-between ;
+        /* background-color: red ; */
+     
+
+     }
+
+    .user_card{
+        /* background-color: red; */
+        flex-direction:column ;
+    }
+
+    .user_card_photo_name{
+        /* background-color: red; */
+        width: 80vw !important;
+        justify-content: space-around !important;
+    }
+    .user_card img {
+        width: 100px !important;
+        height: 100px !important;
+      
+    }
+
+    .home_page_2 h1 {
+        font-size: 20px;
+    }
+
+    .home_page_2 p {
+        font-size: 10px;
+    }
+
+    .home_page_2 div {
+       
+        height: 100px !important;
+      
+    }
+
+    .uper_profile{
+        flex-direction: column;
+        align-items: center;
+        gap: 0 !important;
+    }
+
+    .user_profile_image_div p{
+        display: none;
+    }
+
+    /* .profile_div{
+        text-align: center;
+    } */
+
+    .uper_profile{
+        text-align: center;
+        
+    }
+
+    .profile_text p{
+        /* background-color: aquamarine; */
+        width: 80vw;
+       margin: auto;
+    }
+
+    .profile_icon {
+        justify-content: center !important;
+    }
+
+    .uper_profile button {
+        margin-right: 0% !important;
+        /* border-left: none !important; */
+        border-radius: 0px !important;
+        width: 30% ;
+    }
+
+    .clode_dilog_btn {
+       
+        top: 0%;
+        right: 0%;
+    }
+
+    dialog{
+        /* background-color: red !important; */
+        padding: 0px !important;
+        width: 100vw !important;
+    }
+    dialog div div form {
+      
+        width: 100% !important;
+      
+        padding: 0px !important;
+     
+    }
+
+   
+}
+
+
+@media screen and (max-width:500px)  {
+    
+    .page1_p {
+        font-size: 25px !important;
+        /* background-color: red; */
+    
+    }
+    .page1_p span {
+        font-size: 10px !important;
+        /* background-color: red; */
+    
+    }
+
+
+    .header_name{
+        font-size: 20px;
+        /* background-color: red; */
+        padding: 10px;
+    }
+
+
+    nav {
+        
+        justify-content: space-between;
+        padding: 3vw 2vh !important;
+    }
+
+
+    #page2 div div {
+        /* background-color: blue; */
+      
+        font-size: 10px !important;
+
+    }
+
+    #page2 div #page2_big_text {
+        font-size: 20px !important;
+       
+    }
+
+
+    .project_box2{ 
+      padding: 0px !important;
+     width: 90% !important;
+
+   }
+
+   .project_details{
+
+    padding: 10px !important;
+  
+  }
+
+  .kuchbhi{
+    /* background-color: blue; */
+    width: 100% !important;
+    padding: 5px;
+  }
+
+  .project_details p a {
+    padding: 0px !important;
+    gap: 0px !important;
+    margin-right: 20px;
+    margin-top: 15px;
+}
+  
+    .all_project_h1 {
+     
+        font-size: 20px;
+        border-bottom: 1px solid black;
+    }
+
+    .porject_div_link_img {
+  
+        flex-direction: column;
+        justify-content: space-between;
+     
+
+     }
+
+
+     .project_user_img {
+        width: 100px !important;
+        height: 100px !important;
+       }
+
+
+       .project_details h1{
+        font-size: 25px;
+        text-align: center;
+        margin-top: 20px;
+       
+    }
+
+    .all_project_img {
+        /* position: absolute; */
+        width: 100% !important; 
+        height: 200px !important;
+        background-color: red;
+    }
+
+    .all_project_img img{
+        /* position: absolute; */
+        width: 100% !important; 
+        height: 200px !important;
+        background-color: red;
+    }
+
+    
+
+    .profile_name{
+        font-size: 25px;
+    }
+
+}
+
+@media screen and (max-width:450px) {
+    
+    .user_card img {
+        width: 60px !important;
+        height: 60px !important;
+      
+    }
+
+    /* .user_card_details >p {
+        display: none ;
+    } */
+
+    .user_card{
+        font-size: 10px;
+        width: 100% !important;
+    }
+
+}
+
+
+
+@media screen and (max-width:355px)  {
+    
+    .page1_p {
+        font-size: 20px !important;
+        /* background-color: red; */
+    
+    }
+    .page1_p span {
+        font-size: 5px !important;
+        /* background-color: red; */
+    
+    }
+
+
+    .header_name{
+        font-size: 15px;
+        /* background-color: red; */
+        padding: 10px;
+    }
+
+
+
+    .home_page_2 h1 {
+        font-size: 15px;
+    }
+
+    .home_page_2 p {
+        font-size: 6px;
+    }
+
+    .home_page_2 div {
+       
+        height: 60px !important;
+      
+    }
+
+
+    .all_project_h1 {
+     
+        font-size: 15px;
+        border-bottom: 1px solid black;
+    }
+
+    .project_details h1{
+        font-size: 20px;
+        line-height: normal;
+    }
+
+    .project_user_img {
+        width: 80px !important;
+        height: 80px !important;
+       }
+
+
+       .profile_icon {
+    
+        gap: 5px !important;
+        font-size: small;
+    }
+
+
+}

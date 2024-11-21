@@ -1,0 +1,358 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500'); */
+  
+
+*{
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif ;
+
+
+    }
+
+
+    /* body { */
+      /* font-family: 'Roboto', sans-serif; */
+      /* background-color:#181828; */
+      /* background-color: black; */
+    /* } */
+
+  
+
+  /* .toast_div{
+      background-color: red !important;
+      position:absolute !important;
+      top: 0% !important;
+      right: 0% !important;
+      left: 50;
+      bottom: 0% !important;
+      display: flex;
+      flex-direction: column;
+      width: 60px ;
+      height: 60px;
+
+  } */
+
+  .Toastify__toast-container--top-center{
+    /* background-color: red !important; */
+    position:absolute !important;
+    /* top: 0 !important; */
+    right: 0 !important;
+    /* left: 50; */
+    /* bottom: 0vh !important; */
+    display: flex;
+    flex-direction: column;
+    width: 60px ;
+    height: 60px;
+    z-index: 999;
+  }
+
+    .no-scroll {
+      overflow: hidden;
+    }
+    
+    ::placeholder {
+      color: rgb(0, 0, 0);
+      opacity: 1; /* Firefox */
+    }
+    
+    ::-ms-input-placeholder { /* Edge 12-18 */
+      color: rgb(0, 0, 0);
+    }
+    
+    dialog::backdrop{
+      background-color: rgba(255, 255, 255, 0.304);
+      
+    
+    }
+    
+    
+    dialog{
+      
+      margin: auto;
+      padding: 0px !important;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(220, 0, 0, 0);
+      border: none;
+      backdrop-filter: blur(40px);
+      z-index: 800!important; /* Higher than the dialog box */
+
+    
+    }
+    
+    .clode_dilog_btn{
+      position: absolute;
+      top: 10%;
+      right:10%;
+      background-color: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      mix-blend-mode: difference;
+      padding: 10px;
+      border-radius: 5px;
+      outline: none;
+      z-index: 998;
+      border: 1px solid black;
+      border-radius: 0px;
+    }
+    
+    
+   
+    
+    dialog div{
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 247, 255, 0);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    dialog div div form{
+    
+    
+      display: flex !important;
+      flex-direction: column ;
+      gap: 10px;
+      width: 70%;
+      /* height: 50%; */
+      height: auto;
+      padding: 30px;
+      /* background-color: rgba(255, 0, 0, 0.9); */
+    
+    }
+    
+    dialog div div form input {
+      outline: none;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: rgb(0, 0, 0) ;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    
+    dialog div div form button{
+      margin: 0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgb(0, 69, 72);
+      color: white;
+      cursor: pointer;
+    }
+    
+
+    .otp_div{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar {
+      position: fixed;
+      /* left: -250px; */
+      right: -250px;
+      width: 250px;
+      top: 0;
+      height: 100%;
+      background: #37374c00;
+      backdrop-filter: blur(20px) !important;
+      transition: all .5s ease;
+      z-index: 999;
+      color: black;
+    }
+    .sidebar header {
+      font-size: 22px;
+        color: #000000ed;
+        line-height: 70px;
+        text-align: center;
+        /* background: #000000; */
+        user-select: none;
+        /* background-color: #00000057; */
+    }
+    .sidebar ul a{
+      display: block;
+      height: 100%;
+      width: 100%;
+      line-height: 45px;
+      font-size: 20px;
+      color: rgb(0, 0, 0) ;
+      padding-left: 20px;
+      box-sizing: border-box;
+      transition: .4s;
+    }
+    ul li:hover a{
+      padding-left: 50px;
+    }
+    .sidebar ul a i{
+      margin-right: 16px;
+      /* background-color: red; */
+    }
+    #check{
+      display: none;
+    }
+    label #btn,label #cancel{
+      position: fixed;
+      background: #000000;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    label #btn{
+      left: 40px;
+        top: 25px;
+        font-size: 21px;
+        color: #c2ff09;
+        box-shadow: #c2ff09bf 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) -1px 20px 16px;
+        padding: 23px;
+        transition: all .5s;
+        border-radius: 50%;
+      z-index: 998;
+
+    }
+    label #cancel{
+         z-index: 1111;
+        left: -195px;
+        top: 17px;
+        padding: 18px;
+        font-size: 19px;
+        color: #ff0000;
+        transition: all .5s ease;
+        border-radius: 0px 5px 5px 0px;
+      z-index: 998;
+
+    }
+    #check:checked ~ .sidebar{
+      /* left: 0; */
+      right: 0;
+    }
+    #check:checked ~ label #btn{
+      left: 250px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    #check:checked ~ label #cancel{
+      left: 250px;
+    }
+    #check:checked ~ section{
+      margin-left: 250px;
+    }
+    section{
+      background: url(bg.jpeg) no-repeat;
+      background-position: center;
+      background-size: cover;
+      height: 100vh;
+      transition: all .5s;
+    }
+    
+    /* .text-active-blue.active {
+        color: #ffffff!important;
+    } */
+    
+    .navigation__menu>li>a.active {
+        color: #ffffff !important;
+        background-color: #000000;
+          border: .00001px solid #0096ff8a;
+        box-shadow: #00000045 0px 25px 20px -20px;
+       border-radius: 50px !important;
+
+    }
+
+
+    /* li .active  { */
+      /* color: #ffffff !important; */
+      /* background-color: #000000; */
+        /* border: .00001px solid #0096ff8a; */
+      /* box-shadow: #00000054 0px 25px 20px -20px;
+       background-color: red;
+       color: blue !important; */
+       /* box-shadow: 20px 20px 20px rgb(40, 255, 29); */
+       /* border-radius: 50px !important; */
+  /* } */
+    
+    .text-red {
+        color: #e53935!important;
+    }
+    
+    .text-green {
+        color: #2cc56f!important;
+    }
+    
+    .text-amber {
+        color: #ffc021!important;
+    }
+    
+    .text-purple {
+        color: #ac66f5!important;
+    }
+    
+    .text-cyan {
+        color: #00f3e7!important;
+    }
+    
+    .text-pink {
+        color: #e91e63!important;
+    }
+    
+    
+    .navigation__menu>li>a {
+        border-radius: .25rem;
+        font-size: .95rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        /* margin-top: 10px; */
+    }
+
+    .navigation__menu>li> label {
+
+
+      /* background-color: red; */
+      padding: 20px 35% 20px 35%;
+
+      font-size: 15px;
+
+      cursor: pointer;
+
+      margin-top: 20%;
+     
+      /* margin: 0px ; */
+
+        /* border-radius: .25rem;
+        font-size: .95rem;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center; */
+    }
+    
+    
+    
+    
+    .navigation__menu
+    {
+      padding: 28px 10px 0px;
+    }
+    
+    
+    .navigation__menu a
+    {
+          color: #000000 !important;
+    }
+    
+    .closebtn
+    {
+      position: absolute;
+        left: 53px;
+    }
+    
+    
+    
+    
