@@ -43,7 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // final react url
 
-const react_url = "https://anshulportfolio00.netlify.app"     //✔️
+// const react_url = "https://anshulportfolio00.netlify.app"     //✔️
+const react_url = "https://skillfolioo.netlify.app"     //✔️
 
 
 // extra routs 
