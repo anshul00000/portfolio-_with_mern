@@ -39,22 +39,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // const react_url = "http://localhost:5173";    //✔️
 
-// const react_url = "https://66bbd54e9028aeb3f6537274--superb-bublanina-ddc5e7.netlify.app"
-
 // final react url
-
-// const react_url = "https://anshulportfolio00.netlify.app"     //✔️
-const react_url = "https://skillfolioo.netlify.app"     //✔️
-
-
-// extra routs 
+const react_url = "https://skillfolioo.netlify.app/"     //✔️
+// // extra routs 
+// const corsOptions = {
+//   origin : react_url ,
+// //  methods : "GET , POST , PUT , DELETE  , PATCH",
+//  methods : ["GET", "POST", "PUT", "DELETE", "PATCH"],
+//  credentials: true
+// } 
 const corsOptions = {
-  origin : react_url ,
-//  methods : "GET , POST , PUT , DELETE  , PATCH",
- methods : ["GET", "POST", "PUT", "DELETE", "PATCH"],
-
- Credential : true ,
-} 
+  origin: react_url ,  // ✅ Your React dev server
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true                 // ✅ Fix this spelling!
+};
 
 app.use(cors(corsOptions));
 
@@ -71,9 +69,7 @@ app.use('/', indexRouter);
 
 
 app.use(function(req, res, next) {
-  
   next(createError(404));
-
 });
 
 // error handler
