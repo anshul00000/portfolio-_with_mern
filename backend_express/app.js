@@ -39,8 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // const react_url = "http://localhost:5173";    //✔️
 
-// final react url
-const react_url = "https://skillfolioo.netlify.app/"     //✔️
+const react_url = "https://skillfolioo.netlify.app"     //✔️
 // // extra routs 
 // const corsOptions = {
 //   origin : react_url ,
