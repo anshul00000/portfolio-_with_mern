@@ -521,10 +521,7 @@ const closeDialog = () => {
         <div className="form">
 
           <h2 className='fontstyle'>| Sign up |</h2>
-
-
           {/* <form action='#' onSubmit={login_save}> */}
-
           {/* openDialog ,login_save ,send_otp*/}
 
           <form action='#' onSubmit={input_email ? login_save : send_otp } >
