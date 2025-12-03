@@ -35,7 +35,10 @@ const axios = require("axios");
 const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() }); // Store file in memory
 
-const IMGBB_API_KEY = "da1525012fc530ebe43bac497e762627";
+const IMGBB_API_KEY = process.env.IMGBB_API_KEY || "da1525012fc530ebe43bac497e762627";
+
+// require form-data for server-side multipart building
+const FormData = require('form-data');
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
@@ -169,7 +172,6 @@ router.route('/verifyotp').post((req, res) => {
 
 
 
-
 //  *********************************
 //  ****   register route  ******
 //  *********************************
@@ -275,6 +277,7 @@ router.route('/login').get((req, res) => {
 
 
 
+
 //  *********************************
 //  **** forget route  ******
 //  *********************************
@@ -372,6 +375,7 @@ router.route('/contact').get((req, res) => {
 
 
 });
+
 
 
 
@@ -523,8 +527,6 @@ router.route('/unfollow').post(user_details, async (req, res) => {
 
 
 
-
-
 //  *********************************
 //  ****   get  user ******
 //  *********************************
@@ -544,7 +546,7 @@ router.route('/auser').post(async (req, res) => {
     // const project_details = await project.find({owner : user_id}).populate('owner', '-password');
 
 
-    const project_details = await Project_schema.find({ owner: user_id });
+    const project_details = await Project_schema.find({ owner: user_id }).populate('owner');
 
     // req.user = user_deails;
 
@@ -573,13 +575,7 @@ router.route('/auser').post(async (req, res) => {
   // const project_data = req.project;
 
   // res.json({ user_tooken, project_data });
-
-
-
-
   // res.json("hyyy this is working !");
-
-
 });
 
 
@@ -641,67 +637,34 @@ router.route('/allproject').get(all_project, (req, res) => {
 //  ****   file route  ******
 //  *********************************
 
-
 router.route('/file').post(upload.single('image'), async (req, res) => {
 
-
-  // const name = req.body.name;
-  // const description = req.body.description;
-  // const technologys = req.body.technologys;
-  // const github_link = req.body.github_link;
-  // const online_link = req.body.online_link;
-
-
   const image = req.file;
-
   const { name, description, technologys, github_link, online_link, owner } = req.body;
 
-
   if (name === "" && description === "" && technologys === "" && github_link === "") {
-
     res.json({ message: "Name , Description , Technologys , github_link Important Pleae filup these feeldes" });
-
   } else {
-
-    // || file.length === 0 this term is not here because file is nor array
-
     if (!image) {
-
-      // res.json({ message: 'No files uploaded, but text data received.', owner_is : owner ,name : name , description : description , technologys : technologys, github_link : github_link , online_link : online_link, });
-
       const response = await Project_schema.create({ name, description, technologys, github_link, online_link, owner });
-
       res.json(response);
-
-
     } else {
-
-      // const image_name = image.filename;
-
       const formData = new FormData();
       formData.append("key", IMGBB_API_KEY);
       formData.append("image", req.file.buffer.toString("base64"));
 
       // ImgBB API ko request bhejo
       const response = await axios.post("https://api.imgbb.com/1/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: formData.getHeaders ? formData.getHeaders() : { "Content-Type": "multipart/form-data" },
+        maxBodyLength: Infinity
       });
 
       const image_name = response.data.data.url;
-
-
-
-      // res.json({ message: 'Files and data received successfully.', owner_is: owner, name : name , description : description , technologys : technologys, github_link : github_link , online_link : online_link,  });
-
       const response2 = await Project_schema.create({ name, description, technologys, github_link, online_link, image: image_name, owner });
 
       res.json(response2);
-
-
     }
-
   }
-
 });
 
 
@@ -709,101 +672,136 @@ router.route('/file').post(upload.single('image'), async (req, res) => {
 //  ****   user update route  ******
 //  *********************************** 
 
+// Helper: safe JSON parse for arrays or comma-separated strings
+function safeJsonParse(value) {
+  if (value === undefined || value === null) return undefined;
+  if (typeof value === 'object') return value;
+  if (typeof value !== 'string') return undefined;
+  try {
+    return JSON.parse(value);
+  } catch (e) {
+    // fallback: comma-separated string => array
+    return value.split(',').map(s => s.trim()).filter(Boolean);
+  }
+}
+
+function normalizeEducationArray(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map(item => ({
+    type: item.type || 'college',
+    institution: item.institution || '',
+    degree: item.degree || '',
+    fieldOfStudy: item.fieldOfStudy || '',
+    startYear: item.startYear ? Number(item.startYear) : undefined,
+    endYear: item.endYear ? Number(item.endYear) : undefined,
+    description: item.description || ''
+  }));
+}
+
+function normalizeExperienceArray(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map(item => ({
+    company: item.company || '',
+    role: item.role || '',
+    location: item.location || '',
+    startDate: item.startDate ? new Date(item.startDate) : undefined,
+    endDate: item.endDate ? new Date(item.endDate) : undefined,
+    currentlyWorking: !!item.currentlyWorking,
+    description: item.description || ''
+  }));
+}
+
+function normalizeCertificationsArray(arr) {
+  if (!Array.isArray(arr)) return [];
+  return arr.map(item => ({
+    title: item.title || '',
+    issuer: item.issuer || '',
+    issueDate: item.issueDate ? new Date(item.issueDate) : undefined,
+    credentialUrl: item.credentialUrl || ''
+  }));
+}
+
 router.route('/updateuser/:id').patch(user_details, upload.single('image'), async (req, res) => {
   try {
-    const image = req.file;
     const id = req.params.id;
-    const { username, bio, github, linkedin } = req.body;
-    if (!image) {
-      const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin }, { new: true });
-      if (!project) {
-        console.log("user not found");
-        res.json('user not found');
-      } else {
-        res.json({ message: "update details sussefully ", updatedproject: project });
-      }
-    } else {
-      // const image_name = image.filename;
-      const formData = new FormData();
-      formData.append("key", IMGBB_API_KEY);
-      formData.append("image", req.file.buffer.toString("base64"));
-      // ImgBB API ko request bhejo
-      const imageresponse = await axios.post("https://api.imgbb.com/1/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-      // console.log("yoyoyoyoy image is here 🚀🚀🚀🚀💃🏻💃🏻💃🏻 = >  ", imageresponse.data.data)
-      let image_name = imageresponse.data.data.url;
 
-      // const project = await User.findOne({ _id: id });
-      // const oldphotopath = project.photo;
-      // if (oldphotopath === "default.jpg") {
+    // Basic scalars
+    const {
+      username,
+      bio,
+      github,
+      linkedin,
+      role,
+      website,
+      resumeUrl,
+      location,
+      isFresher
+    } = req.body;
 
-      const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin, photo: image_name }, { new: true });
+    // Parse arrays (frontend sends JSON strings)
+    const educationRaw = safeJsonParse(req.body.education);
+    const experienceRaw = safeJsonParse(req.body.experience);
+    const certificationsRaw = safeJsonParse(req.body.certifications);
+    const skillsRaw = safeJsonParse(req.body.skills);
 
-      if (!project) {
-        console.log("user not found");
-        res.json('user not found');
+    const education = educationRaw ? normalizeEducationArray(educationRaw) : undefined;
+    const experience = experienceRaw ? normalizeExperienceArray(experienceRaw) : undefined;
+    const certifications = certificationsRaw ? normalizeCertificationsArray(certificationsRaw) : undefined;
+    const skills = Array.isArray(skillsRaw) ? skillsRaw.map(s => String(s)) : (typeof skillsRaw === 'string' ? skillsRaw.split(',').map(s => s.trim()).filter(Boolean) : undefined);
 
-      } else {
+    // Build update object only with provided fields
+    const updateObj = {};
+    if (typeof username !== 'undefined') updateObj.username = username;
+    if (typeof bio !== 'undefined') updateObj.bio = bio;
+    if (typeof github !== 'undefined') updateObj.github = github;
+    if (typeof linkedin !== 'undefined') updateObj.linkedin = linkedin;
+    if (typeof role !== 'undefined') updateObj.role = role;
+    if (typeof website !== 'undefined') updateObj.website = website;
+    if (typeof resumeUrl !== 'undefined') updateObj.resumeUrl = resumeUrl;
+    if (typeof location !== 'undefined') updateObj.location = location;
+    if (typeof isFresher !== 'undefined') updateObj.isFresher = isFresher;
+    if (typeof education !== 'undefined') updateObj.education = education;
+    if (typeof experience !== 'undefined') updateObj.experience = experience;
+    if (typeof certifications !== 'undefined') updateObj.certifications = certifications;
+    if (typeof skills !== 'undefined') updateObj.skills = skills;
 
-      // console.log("yoyoyoyoy image is here 🚀🚀🚀🚀💃🏻💃🏻💃🏻 = >  ", imageresponse.data.data)
-      // console.log("yoyoyoyoy image data is here 🚀🚀🚀🚀💃🏻💃🏻💃🏻 = >  ", imageresponse.data)
-        res.json({ message: "update detais sussefully ", updatedproject: project });
-      }
-
-
-      // } else { // to delete old photo but in ibb thare is no process to delete file with api 
-
-      //   // const filePath = path.join(__dirname, '../../frontend_react/public/users', oldphotopath);
-
-
-      //   const filePath = path.join(__dirname, '../public/images', oldphotopath);
-
-      //   // Delete the file from the filesystem
-      //   fs.unlink(filePath, async (err) => {
-
-      //     // if (err) return res.json({ message: 'File deletion error', err });
-
-      //     if (err) {
-      //       if (err.code === 'ENOENT') {
-
-
-      //         // File does not exist
-      //         console.log(`File at ${filePath} not found, but the database entry exists.`);
-      //         const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin, photo: image_name }, { new: true });
-      //         if (!project) {
-      //           // console.log("user not found");
-      //           res.json('user not found');
-
-      //         } else {
-      //           res.json({ message: "update user sussefully ", updatedproject: project });
-      //         }
-
-      //       } else {
-      //         // Some other error occurred
-      //         return res.json({ message: 'File deletion error', err });
-      //       }
-      //     } else {
-      //       // File successfully deleted
-      //       console.log(`File at ${filePath} found, and also the database entry exists.`);
-      //       const project = await User.findByIdAndUpdate(id, { username, bio, github, linkedin, photo: image_name }, { new: true });
-      //       if (!project) {
-      //         console.log("user not found");
-      //         res.json('user not found');
-      //       } else {
-      //         res.json({ message: "update user sussefully ", updatedproject: project });
-      //       }
-
-      //     }
-
-      //   });
-      // }
+    // If no file uploaded: update and respond
+    if (!req.file) {
+      const updated = await User.findByIdAndUpdate(id, updateObj, { new: true }).select('-password');
+      if (!updated) return res.status(404).json({ message: 'User not found' });
+      return res.json({ message: 'Details updated successfully', user: updated });
     }
+
+    // If image uploaded, upload to ImgBB
+    const fileBuffer = req.file.buffer;
+    if (!fileBuffer) {
+      // Fallback: update other fields, image not processed
+      const updated = await User.findByIdAndUpdate(id, updateObj, { new: true }).select('-password');
+      if (!updated) return res.status(404).json({ message: 'User not found' });
+      return res.json({ message: 'Details updated (image missing)', user: updated });
+    }
+
+    const formData = new FormData();
+    formData.append('key', IMGBB_API_KEY);
+    formData.append('image', fileBuffer.toString('base64'));
+
+    const imgbbResp = await axios.post('https://api.imgbb.com/1/upload', formData, {
+      headers: formData.getHeaders ? formData.getHeaders() : { 'Content-Type': 'multipart/form-data' },
+      maxBodyLength: Infinity
+    });
+
+    const imageUrl = imgbbResp?.data?.data?.url;
+    if (imageUrl) updateObj.photo = imageUrl;
+
+    const updatedUser = await User.findByIdAndUpdate(id, updateObj, { new: true }).select('-password');
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+
+    return res.json({ message: 'Details and image updated successfully', user: updatedUser });
+  } catch (error) {
+    console.error('Update user error:', error);
+    return res.status(500).json({ message: "Couldn't update user", error: error.message || error });
   }
-  catch (error) {
-    res.json({ message: " Couldn't update user", gadbad: error });
-  }
-})
+});
 
 
 //  ***********************************
@@ -829,18 +827,14 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
     } else {
 
-      // const image_name = image.filename;
-      // const project = await Project_schema.findOne({ _id: id });
-      // const oldphotopath = project.image;
-      // if (oldphotopath === "default.jpg") {
-
       const formData = new FormData();
       formData.append("key", IMGBB_API_KEY);
       formData.append("image", req.file.buffer.toString("base64"));
 
       // ImgBB API ko request bhejo
       const imgresponse = await axios.post("https://api.imgbb.com/1/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: formData.getHeaders ? formData.getHeaders() : { "Content-Type": "multipart/form-data" },
+        maxBodyLength: Infinity
       });
 
       const image_name = imgresponse.data.data.url;
@@ -852,60 +846,8 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
         res.json('Project not found');
 
       } else {
-
-
         res.json({ message: "update project sussefully ", updatedproject: project });
       }
-
-
-      // } else {
-
-
-      //   // const filePath = path.join(__dirname, '../../frontend_react/public/users', oldphotopath);
-
-
-      //   const filePath = path.join(__dirname, '../public/images', oldphotopath);
-
-      //   // Delete the file from the filesystem
-      //   fs.unlink(filePath, async (err) => {
-
-      //     // if (err) return res.json({ message: 'File deletion error', err });
-
-      //     if (err) {
-      //       if (err.code === 'ENOENT') {
-
-
-      //         // File does not exist
-      //         console.log(`File at ${filePath} not found, but the database entry exists.`);
-
-
-      //         // You can still continue with your logic here
-
-      //         const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys, image: image_name }, { new: true });
-      //         if (!project) {
-      //           console.log("Project not found");
-      //           res.json('Project not found');
-      //         } else {
-      //           res.json({ message: "update project sussefully ", updatedproject: project });
-      //         }
-      //       } else {
-      //         // Some other error occurred
-      //         return res.json({ message: 'File deletion error', err });
-      //       }
-      //     } else {
-      //       // File successfully deleted
-      //       console.log(`File at ${filePath} found, and also the database entry exists.`);
-      //       const project = await Project_schema.findByIdAndUpdate(id, { name, description, technologys, image: image_name }, { new: true });
-      //       if (!project) {
-      //         console.log("Project not found");
-      //         res.json('Project not found');
-      //       } else {
-      //         res.json({ message: "update project sussefully ", updatedproject: project });
-      //       }
-
-      //     }
-      //   });
-      // }
     }
   }
 
@@ -915,6 +857,7 @@ router.route('/updateproject/:id').patch(user_details, upload.single('image'), a
 
 })
 
+
 //  ***********************************
 //  ****   Project delete route  ******
 //  *********************************** 
@@ -923,43 +866,12 @@ router.route('/deletefile/:id/image/:image').delete(async (req, res) => {
   const image_name = req.params.image;
   const project_id = req.params.id;
 
-  // if (image_name === "default.jpg") {
-    try {
-      await Project_schema.deleteOne({ _id: project_id });
-      // const a = await Project_schema.findOne({ _id : project_id});
-      res.send({ message: `project delete completly` });
-    } catch (error) {
-      res.json({ message: `Error deleting error is ${error}` });
-    }
-
-  // } else {
-
-  //   try {
-  //     // const filePath = path.join(__dirname, '../../frontend_react/public/users', image_name);
-
-  //     const filePath = path.join(__dirname, '../public/images', image_name);
-
-  //     // Delete the file from the filesystem
-  //     fs.unlink(filePath, async (err) => {
-
-  //       if (err) return res.json({ message: 'File deletion error', err });
-
-  //       try {
-
-  //         await Project_schema.deleteOne({ _id: project_id });
-  //         // const a = await Project_schema.findOne({ _id : project_id});
-  //         res.send({ message: `project delete completly` });
-
-  //       } catch (error) {
-
-  //         res.json({ message: `Error deleting error is ${error}` });
-  //       }
-  //     });
-
-  //   } catch (error) {
-  //     res.json({ message: `image not delete some error = ${error}` });
-  //   }
-  // }
+  try {
+    await Project_schema.deleteOne({ _id: project_id });
+    res.send({ message: `project delete completly` });
+  } catch (error) {
+    res.json({ message: `Error deleting error is ${error}` });
+  }
 });
 
 module.exports = router;

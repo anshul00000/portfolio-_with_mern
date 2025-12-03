@@ -56,19 +56,19 @@ body , html {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  /* box-shadow: inset 0 0 5px grey;  */
   border-radius: 0px;
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(0, 208, 255); 
+  background: rgb(0, 0, 0); 
   /* border-radius: 5px; */
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
+  background: #1f1f1f; 
 }
 
 
@@ -390,7 +390,8 @@ color: white;
 }
 
 
-:root {--accent: #FFA500;
+:root {
+  /* --accent: #FFA500; */
   --color1: linear-gradient(to bottom right, #ff0000, #FF5F1F);
   --transparent: rgb(255, 255, 255, 0.3);}
   
@@ -399,7 +400,7 @@ color: white;
     /* background-color: #80ff00fb !important; */
     width: 100%;
     height: 100vh;
-
+    margin-top: 10vh ;
     display:flex;
     justify-content: center;
     align-items: center;
@@ -427,6 +428,9 @@ color: white;
     border: 2px solid var(--transparent);
     border-radius: 16px;
     text-align: center;
+     position: relative;      /* needed so z-index works */
+      z-index: 1000;           /* high enough to be above most elements */
+     pointer-events: auto;    /* ensure it receives pointer events */
   }
   
   input {
@@ -501,7 +505,7 @@ color: white;
     border: 1px solid rgba(0, 0, 0, 0);
     box-shadow: 5px 5px black;
     cursor: pointer;
-    z-index: 999;
+    z-index: 9999 !important;
     /* box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px; */
   }
   
@@ -789,21 +793,20 @@ color: white;
   cursor: pointer;
   overflow: hidden;
   margin-right: 10%;
-  background-color: rgb(90, 200, 234) !important;
-  
+  background-color: rgb(143, 143, 143) ;
+  width : 100% ; 
 }
 
-
+.fa-solid{
+  margin-left:  10px;
+}
 
 .follow_btn i{
 
   transition: all 0.2s ease;
 }
 .follow_btn:hover i{
-
-  scale: 5;
-
-
+scale: 5;
 }
 
 

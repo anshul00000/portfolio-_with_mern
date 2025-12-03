@@ -8,28 +8,28 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Route , Routes } from 'react-router-dom' ;
 
-import Applist from '../component/Applist';
-import Login from '../component/Login';
-import Background from '../component/Background';
-import Hero from '../component/Hero';
-import Error from '../component/Error';
-import Signup from '../component/Signup';
-import Project from '../component/Project';
-import Projectupload from '../component/Projectupload';
-import Contact from '../component/Contact';
-import Logout from '../component/Logout';
-import Allproject from '../component/Allproject';
-import Footer from '../component/Footer';
-import Profile from '../component/Profile';
-import Users from '../component/users';
-import Scrolltotop from '../component/Scrolltotop';
-import User from '../component/User';
-import Follow_user_list from '../component/Follow_user_list';
+import Applist from '../component/Applist/Applist';
+import Login from '../component/Login/Login';
+import Background from '../component/Background/Background';
+import Hero from '../component/Hero/Hero';
+import Error from '../component/Error/Error';
+import Signup from '../component/Signup/Signup';
+import Project from '../component/Project/Project';
+import Projectupload from '../component/Projectupload/Projectupload';
+import Contact from '../component/Contact/Contact';
+import Logout from '../component/Logout/Logout';
+import Allproject from '../component/Allproject/Allproject';
+import Footer from '../component/Footer/Footer';
+import Profile from '../component/Profile/Profile';
+import Users from '../component/Users/Users';
+import Scrolltotop from '../component/Scrolltotop/Scrolltotop';
+import User from '../component/User/User';
+import Follow_user_list from '../component/Follow_user_list/Follow_user_list';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
-import User_2 from '../component/User_2';
-// ..
+import User_2 from '../component/User_2/User_2';
+import EditProfile from '../component/EditProfile/EditProfile';
 AOS.init();
 
  
@@ -58,6 +58,7 @@ function App() {
                <Route  path="/footer" element={<Footer />} />
                <Route  path="/users" element={<Users />} />
                <Route  path="/followers_users" element={<Follow_user_list />} />
+                <Route path="/edit-profile" element={<EditProfile />} />
                {/* <Route  path="/contact/Name" element={<name />} /> */}
                <Route path="/*" element={<Error/>} />
        </Routes>

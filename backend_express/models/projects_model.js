@@ -22,9 +22,8 @@ const project_schema = new mongoose.Schema({
     
      // other fields
 
-  });
+  },{ timestamps: true });
 
 const project = new mongoose.model("project" , project_schema) ; 
 
 module.exports = project ; 
-  
